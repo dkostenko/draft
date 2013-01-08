@@ -1,17 +1,17 @@
 \documentclass[12pt,a4paper,oneside,titlepage]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[english,russian]{babel}
+\usepackage[english]{babel}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{textcase} 
+\usepackage{tocloft}
 \usepackage[left=3.5cm,right=1cm,top=2cm,bottom=1.2cm]{geometry}
 \author{Kostenko}
 \setcounter{tocdepth}{3}%для глубины страницы содаржения
 \renewcommand{\baselinestretch}{1.25}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % точки в содержании для секций
 \begin{document}
-
-
 {
 \thispagestyle{empty}
 \newpage
@@ -49,24 +49,55 @@ Moscow\\ \number\year
 \clearpage
 }
 
-\newpage
-\section*{Аннотация}
-АннотсацияАннотсацияАннотсация
+
+\section*{Abstract}
+{
+1 paragraph
+asdasdasd
+%1) мотивация/проблема
+% 
+%2) методы/процедуры/подход
+% Для отслеживания объекта будет использоват подход Лукаса и Канаде.
+%3) результаты/продукт
+% Результатом работы будет являться программа, которая отслеживает количество пальцев на ладони, которое показывает человек в камеру.
+%4) последствия (писать про то, что код будет в открытом доступе)
+%5) практический последствия ?????
+% окд программы будет лежать в открытом доступе под лицензией GNU. т.к. не существует открытых исходных кодов программы, которая определяет количество несогнутых пальцев на ладони, то мой код может стать примером реализации подхода Лукаса и Канаде.
+%6) чего нового, в том, что я делаю?
+}
 
 
+{
 \newpage
+\centering
 \tableofcontents
-
+}
 
 
 \newpage
-\section*{Введение}
-\addcontentsline{toc}{section}{Введение}
-пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение пишем введение 
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+1-2 pages
+adssdadas
+
 
 \newpage
-\section*{Заключение}
-\addcontentsline{toc}{section}{Заключение}
-пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение пишем заключение 
+\section*{Main body}
+\addcontentsline{toc}{section}{Main body}
+5 pages
+
+\newpage
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+1 pages
+%
+
+
+\newpage
+\section*{Bibliography}
+\addcontentsline{toc}{section}{Bibliography}
+1-2 pages
+
+
 
 \end{document}
