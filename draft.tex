@@ -6,11 +6,13 @@
 \usepackage{amssymb}
 \usepackage{textcase} 
 \usepackage{tocloft}
+\usepackage{lastpage}
 \usepackage[left=3.5cm,right=1cm,top=2cm,bottom=1.2cm]{geometry}
 \author{Kostenko}
 \setcounter{tocdepth}{3}%для глубины страницы содаржения
 \renewcommand{\baselinestretch}{1.25}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % точки в содержании для секций
+\bibliographystyle{unsrt}
 \begin{document}
 {
 \thispagestyle{empty}
@@ -52,18 +54,22 @@ Moscow\\ \number\year
 
 \section*{Abstract}
 {
-1 paragraph
-asdasdasd
-%1) мотивация/проблема
-% 
-%2) методы/процедуры/подход
-% Для отслеживания объекта будет использоват подход Лукаса и Канаде.
-%3) результаты/продукт
-% Результатом работы будет являться программа, которая отслеживает количество пальцев на ладони, которое показывает человек в камеру.
-%4) последствия (писать про то, что код будет в открытом доступе)
-%5) практический последствия ?????
-% окд программы будет лежать в открытом доступе под лицензией GNU. т.к. не существует открытых исходных кодов программы, которая определяет количество несогнутых пальцев на ладони, то мой код может стать примером реализации подхода Лукаса и Канаде.
-%6) чего нового, в том, что я делаю?
+%Как научная дисциплина компьютерное зрение является динамично развивающейся.
+Computer vision is a dynamic scientific discipline.
+%Одной из главных задач компьютерного зрения является слежение за объектом.
+One of the most important objectives of the computer vision is real-time object tracking.
+%Основой разрабатываемого алгоритма будет метод, предложенный Лукасом и Канаде.
+A basis of the developed algorithm is the differential local method of Lucas and Kanade \cite{lucasKanade}.
+%Данный метод позволяет отслеживать точечные особенности в последовательности кадров.
+This method allows to keep track of point features in the frame sequence. 
+The aim of this degree work is to develop a program that implements this functionality:
+able to read a video-stream from a laptop's built-in camera,
+in the presence of a human hand on the frame, program will display the number of unbent fingers.
+%Но т.к. необходимо следить не за одной точечной особенностью, а за определенной группой точечных особенностей, то необходимо создать математическую модель кисти руки человека.
+%И в дальнейшем отслеживать полученную математическую модель.
+%Результатом будет программа, имеющая следующий функционал. 
+%Возможность считывать видео-поток со встроенной камеры ноутбука.
+%При присутствие на кадре человеческой ладони программу будет выводить количество несогнутых пальцев.
 }
 
 
@@ -94,9 +100,9 @@ adssdadas
 
 
 \newpage
-\section*{Bibliography}
-\addcontentsline{toc}{section}{Bibliography}
-1-2 pages
+\renewcommand\refname{Bibliography}
+\bibliographystyle{plain}
+\bibliography{draft}
 
 
 
