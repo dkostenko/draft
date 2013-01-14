@@ -4,7 +4,11 @@
 Takeo~Kanade Bruce D.~Lucas.
 \newblock {\em An Iterative Image Registration Technique with an Application to
   Stereo Vision}.
-\newblock Computer Science Department Carnegie-Mellon Universit, Pittsburgh,
+\newblock Computer Science Department Carnegie-Mellon University, Pittsburgh,
   Pennsylvania 15213, 1981.
+
+\bibitem{harris_corner_detector}
+Chris Harris.
+\newblock {\em A COMBINED CORNER AND EDGE DETECTOR}, 1988.
 
 \end{thebibliography}
