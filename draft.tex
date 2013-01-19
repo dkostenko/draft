@@ -54,25 +54,13 @@ Moscow\\ \number\year
 
 \section*{Abstract}
 {
-%Как научная дисциплина компьютерное зрение является динамично развивающейся.
-Computer vision is a dynamic scientific discipline.
-%Одной из главных задач компьютерного зрения является слежение за объектом.
-One of the most important objectives of the computer vision is real-time object tracking.
-%Основой разрабатываемого алгоритма будет метод, предложенный Лукасом и Канаде.
-A basis of the developed algorithm is the differential local method of Lucas and Kanade \cite{lucasKanade}.
-%Данный метод позволяет отслеживать точечные особенности в последовательности кадров.
-This method allows to keep track of point features in the frame sequence. 
-The aim of this degree work is to develop a program that implements this functionality:
-able to read a video-stream from a laptop's built-in camera,
-in the presence of a human hand on the frame, program will display the number of unbent fingers.
-%Но т.к. необходимо следить не за одной точечной особенностью, а за определенной группой точечных особенностей, то необходимо создать математическую модель кисти руки человека.
-%И в дальнейшем отслеживать полученную математическую модель.
-%Результатом будет программа, имеющая следующий функционал. 
-%Возможность считывать видео-поток со встроенной камеры ноутбука.
-%При присутствие на кадре человеческой ладони программу будет выводить количество несогнутых пальцев.
-In this paper we presents a novel approach of hand identification and tracking by using a differential method for optical flow calculation developed by B. D. Lucas and T. Kanade \cite{lucasKanade}.
-The proposed method consists of three steps which can be in real-time.
-Firstly, in each frame we calculate contours and then point features using Harris corner detector \cite{harris_corner_detector}
+In this paper we present a novel approach of object identification and tracking.
+We use a differential method for optical flow calculation developed by B. D. Lucas and T. Kanade \cite{lucasKanade}.
+The proposed approach consists of three steps which can be executed in real-time.
+As a first step the 2D vector of optical flow is calculated by Lucas-Kanade method \cite{lucasKanade}.
+Then it produces a binary vector of the optical flow vector to generate regions that are moving.  
+Finally, program divides moving regions of objects, using differences in speed.
+To demonstrate the moving objects, they can be marked with different colors.
 }
 
 
