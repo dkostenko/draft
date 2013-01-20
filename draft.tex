@@ -132,6 +132,23 @@ The rest of this paper is organised as follows:
 \addcontentsline{toc}{section}{Problem statement}
 Movement of objects in front of camera or camera movement in the fixed surroundings leads to changes in the image.
 The image of visible object movement is called optical flow \cite{opticalflow}.
+There are a lot of methods for calculating optical flow.
+Lucas and Kanade \cite{lucasKanade} proposed differential approach.
+It is based on finding of velocity of each image's pixel.
+For calculating optical flow several suggestions were made.
+
+\begin{enumerate}
+  \item the image is a function of two variables
+  \item brightness of the object remains constant in a short period of time
+  \item tracing object on new frame in a short distance from itself on old frame
+\end{enumerate}
+
+The first suggestion gives us all existing methods of mathematical analysis. It means we may use all methods for analysis image. 
+It is expressed by the equation: {\Large$\frac{\delta (x, y, t)}{\delta t} = 0$}
+The second one is because we live in the real world, so object can not travel great distances instantaneously.
+And the third suggestion exist only because without it we can not to find tracing object.
+
+Based on these assumptions, first methods were based on calculating first-order derivative.
 
 
 
