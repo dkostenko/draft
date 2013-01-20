@@ -13,4 +13,9 @@ D.~Marr.
   Representation and Processing of Visual Information.}
 \newblock W.H. Freeman and Company., 1982.
 
+\bibitem{opticalflow}
+S.~S. Beauchemin.
+\newblock The computation of optical flow.
+\newblock {\em ACM Computing Surveys}, 1995.
+
 \end{thebibliography}

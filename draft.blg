@@ -7,45 +7,45 @@ Illegal, another \bibstyle command---line 15 of file draft.aux
  :          {plain}
 I'm skipping whatever remains of this command
 Database file #1: draft.bib
-You've used 2 entries,
+You've used 3 entries,
             1791 wiz_defined-function locations,
-            456 strings with 3869 characters,
-and the built_in function-call counts, 294 in all, are:
-= -- 24
-> -- 8
+            460 strings with 3931 characters,
+and the built_in function-call counts, 423 in all, are:
+= -- 35
+> -- 12
 < -- 0
-+ -- 4
-- -- 2
-* -- 9
-:= -- 54
-add.period$ -- 6
-call.type$ -- 2
-change.case$ -- 0
++ -- 6
+- -- 3
+* -- 12
+:= -- 78
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 1
 chr.to.int$ -- 0
-cite$ -- 2
-duplicate$ -- 17
-empty$ -- 35
-format.name$ -- 2
-if$ -- 65
+cite$ -- 3
+duplicate$ -- 25
+empty$ -- 49
+format.name$ -- 3
+if$ -- 93
 int.to.chr$ -- 0
-int.to.str$ -- 2
-missing$ -- 2
-newline$ -- 13
-num.names$ -- 2
-pop$ -- 10
+int.to.str$ -- 3
+missing$ -- 3
+newline$ -- 18
+num.names$ -- 3
+pop$ -- 13
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 3
+skip$ -- 6
 stack$ -- 0
 substring$ -- 0
-swap$ -- 3
+swap$ -- 4
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 2
-width$ -- 3
-write$ -- 23
+while$ -- 3
+width$ -- 4
+write$ -- 33
 (There was 1 error message)
