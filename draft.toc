@@ -1,4 +1,5 @@
-\select@language {english}
+\select@language {russian}
 \contentsline {section}{Introduction}{4}
-\contentsline {section}{Main body}{5}
-\contentsline {section}{Conclusion}{6}
+\contentsline {section}{Problem statement}{6}
+\contentsline {section}{Algorithm}{7}
+\contentsline {section}{Conclusion}{8}

@@ -7,8 +7,11 @@ Takeo~Kanade Bruce D.~Lucas.
 \newblock Computer Science Department Carnegie-Mellon University, Pittsburgh,
   Pennsylvania 15213, 1981.
 
-\bibitem{harris_corner_detector}
-Chris Harris.
-\newblock {\em A COMBINED CORNER AND EDGE DETECTOR}, 1988.
+\bibitem{marr}
+Д. Марр.
+\newblock {\em Зрение. Информационный подход к
+  изучению представления и обработки
+  зрительных образов.}
+\newblock Радио и связь, 1987.
 
 \end{thebibliography}

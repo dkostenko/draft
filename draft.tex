@@ -1,6 +1,6 @@
 \documentclass[12pt,a4paper,oneside,titlepage]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
+\usepackage[english, russian]{babel}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -85,7 +85,6 @@ For example, improving image quality, identifying features points and determinin
 The vision channel is one of the most informative ones.
 Data volume from video stream exceeds by several times volumes from other sensors.
 Here lies the pitfall - redundancy of information.
-%Иногда бывает достаточно нескольких байт информации
 Occasionally just a few bytes of information are enough.
 For example, we need only the object of interest, and in addition to this, we have other objects, background and fine detail.
 In contrast to human, the machine can not optimally handle this task.
@@ -103,10 +102,41 @@ Any system required to recognize an object should be aware of it.
 It means that system should be trained to recognize images.
 People, during their life, spend a lot of time doing it.
 
+Nowadays, paradigm proposed D. Marr \cite{marr} is used in image processing.
+Point of this one is to process images in sequence:
+\begin{enumerate}
+  \item image pre-processing
+  \item segmentation
+  \item distinguish of the geometric structure
+  \item determine the semantics
+\end{enumerate}
+In other words, processing of low-level should be performed at first, then intermediate-level processing and then high-level processing.
+
+In the general form, motion analysis is comparison of consecutive images of the observed scene.
+
+The rest of this paper is organised as follows:
+\begin{description}
+  \item[Section 2] \hfill \\
+  Identification of key problems of object tracking and formulation of the problem.
+  \item[Section 3] \hfill \\
+  An algorithm of solving the problems and its implementation. 
+  \item[Section 4] \hfill \\
+  Summing-up, prospects of our algorithm and we formulate sphere of application our method.
+\end{description}
+
 \newpage
-\section*{Main body}
-\addcontentsline{toc}{section}{Main body}
-5 pages
+\section*{Problem statement}
+\addcontentsline{toc}{section}{Problem statement}
+2-3 pages
+
+
+
+\newpage
+\section*{Algorithm}
+\addcontentsline{toc}{section}{Algorithm}
+2-3 pages
+
+
 
 \newpage
 \section*{Conclusion}
