@@ -7,7 +7,7 @@
 \usepackage{textcase} 
 \usepackage{tocloft}
 \usepackage{lastpage}
-\usepackage[left=3.5cm,right=1cm,top=2cm,bottom=1.2cm]{geometry}
+\usepackage[left=3.5cm,right=1cm,top=2cm,bottom=2cm]{geometry}
 \author{Kostenko}
 \setcounter{tocdepth}{3}%для глубины страницы содаржения
 \renewcommand{\baselinestretch}{1.25}
@@ -110,9 +110,13 @@ Point of this one is to process images in sequence:
   \item distinguish of the geometric structure
   \item determine the semantics
 \end{enumerate}
+
 In other words, processing of low-level should be performed at first, then intermediate-level processing and then high-level processing.
 
 In the general form, motion analysis is comparison of consecutive images of the observed scene.
+It means the difference between the current frame and the previous one.
+As a result of this operation, we have contours of a moving object.
+This is one of the basic ideas of our work.
 
 The rest of this paper is organised as follows:
 \begin{description}
