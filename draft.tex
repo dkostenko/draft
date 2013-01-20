@@ -102,30 +102,29 @@ Any system required to recognize an object should be aware of it.
 It means that system should be trained to recognize images.
 People, during their life, spend a lot of time doing it.
 
-Nowadays, paradigm is used in image processing proposed by D. Marr \cite{marr}.
-Point of this one is to process images in sequence:
+Nowadays, paradigm proposed by D. Marr \cite{marr} is used in image processing.
+Its point is to process images in sequence:
 \begin{enumerate}
   \item image pre-processing
   \item segmentation
-  \item distinguish of the geometric structure
-  \item determine the semantics
+  \item distinguishing of the geometric structure
+  \item determining the semantics
 \end{enumerate}
 
-In other words, processing of low-level should be performed at first, then intermediate-level processing and then high-level processing.
+In other words, processing of low-level should be performed at first, then intermediate-level processing and finally high-level processing.
 
-In the general form, motion analysis is comparison of consecutive images of the observed scene.
-It means the difference between the current frame and the previous one.
-As a result of this operation, we have contours of a moving object.
+In the general form, motion analysis is a comparison of consecutive images of the observed scene, which is the difference between the current frame and the previous frame.
+As the result of this operation, we have contours of a moving object.
 This is one of the basic ideas of our work.
 
 The rest of this paper is organised as follows:
 \begin{description}
   \item[Section 2] \hfill \\
-  Identification of key problems of object tracking and formulation of the problem.
+  Identification of key problems of object tracking and problem statement.
   \item[Section 3] \hfill \\
-  An algorithm of solving the problems and its implementation. 
+  An algorithm for solving the problems and its implementation. 
   \item[Section 4] \hfill \\
-  Summing-up, prospects of our algorithm and we formulate sphere of application our method.
+  Summing-up, prospects of our algorithm and formulating the scope of our method.
 \end{description}
 
 \newpage
