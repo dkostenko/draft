@@ -53,13 +53,9 @@ Moscow\\ \number\year
 
 \section*{Abstract}
 {
-In this paper we present an approach of object identification and tracking.
-We use a differential method for optical flow calculation developed by B. D. Lucas and T. Kanade \cite{lucasKanade}.
-The proposed approach consists of three steps which can be executed in real-time.
-As a first step the 2D vector of optical flow is calculated by Lucas-Kanade method \cite{lucasKanade}.
-Then it produces a binary vector of the optical flow vector to generate regions that are moving.  
-Finally, program divides moving regions of objects, using differences in speed.
-To demonstrate the moving objects, they can be marked with different colors.
+В данной статье описывается подход к обнаружению и подсчету транспортных средств на атодорогах.
+Он основан на дифференциальном методе вычисления оптического потока, предложенном Лукасом и Канаде.
+Отличие данного метода от других состоит в том, что нет необходимости подготавливать модель фона.
 }
 
 
@@ -73,314 +69,71 @@ To demonstrate the moving objects, they can be marked with different colors.
 \newpage
 \section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
-In our generation scientific and engineering community attempts to build human-like machines.
-Like a man, these robots are supposed to have various senses, ability to analyse incoming information, based on its conclusions and develop and implement behaviour patterns.
-And starting to implement, scientists immediately came across a problem of image understanding.
-There are a lot of engineering achievements that supersede analogues of the most perfect system - human.
-However, there is a large gap between human and machine in the technology of artificial intelligence.
-Impossibility to fully automate analysis of information from visual channel, even as a child level, pushes researchers to move forward gradually.
-They divide the problem into sub-problems of computer vision. 
-For example, improving image quality, identifying features points and determining the similarity of images.
+В наше время наблюдается высокие рост количества транспортных средств во всех городах России.
+По данным ГИБДД только в Москве ежегодный прирост автомобилей составляет 110 - 120 тысяч.
+В результате проблема заторов автотранспортных дорог становится более острой.
+Как следствие увеличивается расход топлива, уровень загрязнения окружающей среды и время пути каждого автомобилиста.
+Одним из решений данной проблемы является установка городской интелектуальной транспортной системы (ИТС).
+ИТС варьируются от простых систем регулирования светофоров, до систем регистрации скорости транспортных средств, контроля автомобильного потока и распознования фактов нарушений.
+%(http://ru.wikipedia.org/wiki/Интеллектуальная_транспортная_система)
+Такие системы с полной комплектацией позволяют контролировать три важных направления:
 
-The vision channel is one of the most informative ones.
-Data volume from video stream exceeds by several times volumes from other sensors.
-Here lies the pitfall - redundancy of information.
-Occasionally just a few bytes of information are enough.
-For example, we need only the object of interest, and in addition to this, we have other objects, background and fine detail 
-(an object of interest is what, which we need to track).
-In contrast to human, the machine can not optimally handle this task.
-Consequence of this problem is the fact that even an ant can navigate better in the complicated situation than existing robots.
+1) Безопасность. Основная цель — снижение аварийности на дорогах. Сюда же входит мониторинг природных и техногенных катаклизмов.
 
-Why is the task of understanding the image so complex?
-In the image processing we can come across several problems.
-Firstly, objects of observations are very volatile in general.
-Causes of variability are difficult to formalize.
-Existing methods of dealing with different lighting, noises and distortions cope rather clumsily.
-Secondly, scene observations also can not be modelled.
-This is due to the fact that there is a diversity of geometrical forms, colors and textures.
-Third problem is knowledge base.
-Any system required to recognize an object should be aware of it.
-It means that system should be trained to recognize images.
-People, during their life, spend a lot of time doing it.
+2) Мобильность. Сбор информации о пробках от движущихся в потоке автомобилей и информирование участников движения.
 
-Nowadays, paradigm proposed by D. Marr \cite{marr} is used in image processing.
-Its point is to process images in sequence:
-\begin{enumerate}
-  \item image pre-processing
-  \item segmentation
-  \item distinguishing of the geometric structure
-  \item determining the semantics
-\end{enumerate}
+3) Защита окружающей среды. Снижение ущерба окружающей среде от автотранспорта посредством мониторинга ситуации в реальном времени и своевременного принятия решений.
 
-In other words, processing of low-level should be performed at first, then intermediate-level processing and finally high-level processing.
+ИТС может содержать в себе датчики различных типов, от тепловых до ультразвуковых.
+Ручная обработка гигантского объема данных, поступающих от всех сенсоров таких систем непрактична.
+Поэтому появляется необходимость автоматизировать обработку данных и заключения выводов на основе них.
 
-In the general form, motion analysis is a comparison of consecutive images of the observed scene, which is the difference between the current frame and the previous frame.
-As the result of this operation, we have contours of a moving object.
-This is one of the basic ideas of our work.
+Автоматическое обнаружение транспортных средств в данных видеонаблюдения является комплексной задача в компьютерном зрении.
 
-The rest of this paper is organised as follows:
-\begin{description}
-  \item[Section 2] \hfill \\
-  Identification of key problems of object tracking and problem statement.
-  \item[Section 3] \hfill \\
-  An algorithm for solving the problems and its implementation. 
-  \item[Section 4] \hfill \\
-  Related work.
-  \item[Section 5] \hfill \\
-  Summing-up, prospects of our algorithm and formulating the scope of our method.
-\end{description}
+Одной из задач такой системы является подсчет транспортных средств на автодороге.
+Которая в свою очередь тоже разбивается на подзадачи компьютерного зрания, такие как: выделение объектов переднего плана (автомобилей) и отслеживание их положения в последующих кадрах.
+
+
+В данной статье мы описываем подход к решению задачи автоматического отслеживания движущихся транспортных средств и их подсчета.
+Где единственным источником данных о ситуации на автодороге является видеокамера. 
+Краткое содержание последующих глав:
+
+3) Краткое описание существующих решений в области видеонаблюдения на автодорогах.
+
+4) Постановка задачи и формулирование требований к разрабатываемому алгоритму.
+
+5) 
+
+6) Краткое содержание важных моментов статьи, перспективы развития подхода.
 
 \newpage
 \section*{Problem statement}
 \addcontentsline{toc}{section}{Problem statement}
-One of the most important task in video observation consists of detection of objects of interest and tracing its mechanical trajectory in the next frames.
-This task can be broken down into sub-tasks.
-Firstly, point out the object of interest.
-After decision, we have the coordinate position of the object.
-On how to point out the object of interest, rectangular frame or pixel mask, will be written further.
-And then, we need to keep track of it on all subsequent frames.
-
-
-Movement of objects in front of camera or camera movement in the fixed surroundings leads to changes in the image.
-The image of visible object movement is called optical flow \cite{opticalflow}.
-There are a lot of methods for calculating optical flow.
-Lucas and Kanade \cite{lucasKanade} proposed differential approach.
-It is based on finding of velocity of each image's pixel.
-For calculating optical flow several suggestions were made.
-
-\begin{enumerate}
-  \item the image is a continuous function of two variables
-  \item brightness of the object remains constant in a short period of time
-  \item tracing object on new frame in a short distance from itself on old frame
-\end{enumerate}
-
-The first suggestion gives us all existing methods of mathematical analysis and allows to perform all mathematical operations on images.
-The second one is because we live in the real world, so object can not travel great distances instantaneously.
-And the third suggestion exist only because without it we will not be able to find tracing object.
-
-Relying on these assumptions, first methods of optical flow calculation were based on calculating first-order derivative.
-It is expressed by the equation: {\Large$\frac{\delta (x, y, t)}{\delta t} = 0$}
-
-
-
-
-
-
-
-
-Одна из наиболее важных задач в видео наблюдении состоит из идентификации объекта интереса и отслеживание его траектории в последующих кадрах.
-
-Эту задача может быть разбита на подзадачи.
-
-Первое, обнаружим объект интереса.
-
-После того, как мы это сделали мы получим координаты объекта на изображении.
-
-О том, как выделять объект интереса (ограничевающей рамкой или попиксельной маской) будет написанно позже.
-
-Заттем мы должны отследить изменения координат в последующих кадрах.
-
-Движущийся объект перед камерой или движущиеся камера в неподвижной обстановке ведет к изменения изображения.
-
-Изображение видимого движения объекта называется оптическим потоком.
-
-Существует несколько методов вычисления оптического потока.
-
-Лукас и Канаде предложили дифференциальный подход.
-
-Он основывается на нахождении скорости каждого пикселя кадра.
-
-Для вычисления оптического потока необходимо сделать несколько предположений.
-
-1) изображение - это непрерывная функция от двух переменных
-
-2) яркость объекта остается неизменной в небольшой промежуток времени
-
-3) отслеживаеммый объект на новом кадре будет расположен на небольшом расстоянии относительно предыдущего кадра.
-
-Первое предположение дает нам возможность использовать методы математического анализа и позволяет производить матемстические операции над изображением.
-
-Второе предположение существует потому, что мы живем в реальном мире, в котором  обхекты не могут мгновенно перемещаться на большие расстояния.
-
-Третье предположение необходимо потому что мы не сможем без него отслеживать объект.
-
-
-
-
-
-Полагаясь на эти предположения первые методы вычисление оптического потока были основаны на вычислении первой производной изображения.
-
-
-
-
-
-
-
-Одна из основных задач видеонаблюдения состоит в выделении объектов интереса и отслеживание траектории их движения в последующих кадрах.
-2 позадачи
-1) выделение объектов интереса
-как выделать?
-прямоугольная рамка
-попиксильная маска
-
-2) после решения первой задачи есть координаты положения объекта
-нам нужно отследить его на всех последующих кадрах
-
-что такое объекты интереса - это все, что мы хотим отслеживать
-
-проблемы на пути создания системы видеонаблюдения:
-главная проблема - это то, что видео очень большое по размеру.
-на видео может быть больше,чем один объект, поэтому нагрузка может быть очено высокая
-
-вторая проблема - вид объхекта от кадра к кадру будет меняться из-за изменения освещения, изменения позы, или инных изменения. (человек и развивающийся плащ)
-
-третья проблема (про мышей)
-на видео могут быть несоклько похожих друг на друга объектов, которые могут еще и перекрывать друг друга.
-задача отслеживания несолкьких мышей в одной клетке до сих пор полностью не решена.
-т.к. они могу налезать друг надруга и после того, как они расползуться распознать какая из них какая абсолютно невозможно.
-
-
-
-
-
-
-
-
-Разработать алгоритм, с помощью которого, можно реализовать программу, подсчитывающую количество автомобилей на видео с камеры видеонаблюдения.
-
-
-
-
-
-
-
-
-
-
+Требования к алгоритму:
+1) Работать без каких-либо предварительных данных об автодороге
+2) Обработка потока данных в реальном времени
+3) Не должен требовать высоких вычислительных мощностей
+
+
+\newpage
+\section*{Related work}
+\addcontentsline{toc}{section}{Related work}
+В данной главе представлен краткий обзор существующих решений в области видеонаблюдения на автодорогах.
+
+В мире существует только одна всеобъемлющая архитектура ИТС. Это предложенная транспортным департаментом США инициатива, направленная на создание единого информационного пространства, объединяющего автомобили, дорожное оборудование, диспетчерские залы и центры обработки данных по всей стране. 
+%(http://www.iteris.com/itsarch/documents/physical/physical.pdf)
 
 
 
 \newpage
 \section*{Algorithm}
 \addcontentsline{toc}{section}{Algorithm}
-Для пояснения алгоритма возьмем простую искусственную ситуацию.
+В данной главе более подробно раскрывается подход к обнаружению и подсчету транспортных средств на атодорогах.
 
-Лабораторную мышь помещают в банку.
-
-Устанавливают камеру на крышке.
-
-Таким образом камера охватывает все пространство банки.
-
-Т.е. есть возможность отследить движение мыши в банке.
-
-Будем считать, что кадр состоит из двух частей: фон и передний план.
-
-До того, как мышь опустят в банку необходимо сфотографировать пустую банку.
-
-В результате получится изображение пустой банки, которое назовем чистым фоном.
-
-Так как мы будем исползовать стационарную камеру, то для получение переднего плана надо вычесть чистый фон из каждого последующего кадра.
-
-Эта разница и будет предположитлеьно изображением мыши.
-
-Поскольку у камеры есть какой-то шум, то в результате вычитания на изображении может присутствовать шум.
-
-Есть 2 метода борьбы с этим явлением.
-
-1) Обработать заранее каждый кадр фильтром шума (например фильтром Гаусса)
-
-2) Ввести некоторый порог на шум.
-
-Если разница больше либо равна порогу, то пиксель принадлежит переднему плану.
-
-Если разница меньше порога, то пиксель принадлежит фону, либо шуму.
-
-Применяя оба случая в данной системе, мы все-таки можем получить шум на изображении.
-
-Поэтому после вычитания применим методы математической морфологии для утсранения шумов.
-
-Например, снача эррозию, потом дополнение.
-
-Далее на таком бинарном изображении мы можем запустить выделение связных компонент.
-
-В результате каждая связная компонента будет является искомым объектом переднего плана.
-
-В данном случае мышью.
-
-Естественно, что такой алгоритм дает удовлетворительный результат только в искусственных услових, т.е. когда у нас не меняется фон в результате изменения освещения.
-
-В реальных условия фон существенно меняется с течением времени.
-
-Напрмер, камера видео-наблюдения, установленная на улице, днем и ночью будет иметь существенно различимые изображения, а соответственно, необходимо это учитывать в построенни нашей системы видеонаблюдения.
-
-Существует несолько способов получения изображения фона в реальных условиях:
-
-1) Метод усреднения фона.
-
-Усреднить попиксельное несколько последовательных кадров.
-
-Однако, данный метод неудовлетворительно работает, когда в кадрах есть движующиеся объекты или резкие изменения яркости.
-
-2) Метод медианного фона.
-
-В результате применения данного метода мы будет иметь более качественную модель фона.
-
-Но у него так же есть свои дефекты.
-
-В случае, когда во время захвата фона в кадре находились 2 объекта в неподвижном состоянии, то они считаются частью фона.
-
-Потенциально это может быть человек, который остановился, чтобы поговорить по телефону.
-
-А если объект уйдет из наблюдаемой картины, то место, где он находился, будет считаться частью переднего плана.
-
-В построении нашей системы видеонаблюдения мы будем использовать метод медианного фона, т.к. его недостаток не помешает нам подсчитывать количество автомобилей на трассе.
-
-После того, как мы выделили потенциальные объекты, задача слежения за объектом своидится к задаче сопоставления объекта в текущем кадре с объектом в следующем кадре.
-
-Возможно 3 случая состояния объектов на кадре:
-
-1) новый объект
-
-2) новое положение существующего объекта
-
-3) исчезновение существующего объекта
-
-Будем использовать детерменированный метод (метод полного перебора) для поиска нового положения объектов.
-
-Он подразумевает под собой сопоставление ближайших объектов, исполльзуя предположения, описанныые в п.3 (стрк. ??).
-
-Однако у него так же имеется ряд недостатков.
-
-Например, применяя данный метод, в случае затора на автодороге, невозможно будет отличить одну машину от другой.
-
-Но мы в нашей работе будем пренебрегать данным фактом и будем использовать метод сопоставления.
-
-В результате имеем алгоритм видеонаблюдения:
-
-1) получение модели фона медианным методом
-2) обработать модель фона фильтром шума
-
-2) для каждого нового кадра:
-- фильтрация шума на всем кадре
-- вычитание фона
-- обработка маски переднего плана с помощью методов математической морфологии
-- выделение связных компонент
-- ассоциация положения объектов текущего кадра с предыдущим
-- инициализация новых объектов
-- добавление количества новых объектов к счетстчику
+Традиционные 
 
 
 
-
-
-
-
-
-
-\newpage
-\section*{Related work}
-\addcontentsline{toc}{section}{Related work}
-1 page
 
 \newpage
 \section*{Conclusion}
