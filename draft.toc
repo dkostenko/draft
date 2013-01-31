@@ -3,4 +3,6 @@
 \contentsline {section}{Problem statement}{5}
 \contentsline {section}{Related work}{6}
 \contentsline {section}{Algorithm}{7}
-\contentsline {section}{Conclusion}{8}
+\contentsline {section}{Allocation of foreground objects}{8}
+\contentsline {section}{Foreground segmentation}{9}
+\contentsline {section}{Conclusion}{10}
