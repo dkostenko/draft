@@ -7,6 +7,7 @@
 \usepackage{textcase} 
 \usepackage{tocloft}
 \usepackage{lastpage}
+\usepackage{graphicx}
 \usepackage[left=3.5cm,right=1cm,top=2cm,bottom=2cm]{geometry}
 \author{Kostenko}
 \setcounter{tocdepth}{3}%для глубины страницы содаржения
@@ -59,11 +60,27 @@ Moscow\\ \number\year
 }
 
 
+
+
+
+
+
+
+
 {
 \newpage
 \centering
 \tableofcontents
 }
+
+
+
+
+
+
+
+
+
 
 
 \newpage
@@ -129,6 +146,64 @@ And finally, the brief exploration of expected results will be introduced.
 %4) Постановка задачи и формулирование требований к разрабатываемому алгоритму.
 %5) Изложение методов и алгоритмов решения поставленной задачи
 %6) Краткое содержание планируемых рещультатов работы и выводы.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section*{Related work}
+\addcontentsline{toc}{section}{Related work}
+В данной главе представлен краткий обзор существующих решений в области видеонаблюдения на автодорогах.
+
+В мире существует только одна всеобъемлющая архитектура ИТС. Предложенная транспортным департаментом США инициатива, направленная на создание единого информационного пространства, объединяющего автомобили, дорожное оборудование, диспетчерские залы и центры обработки данных по всей стране. Данная транспортная система запатентована правительством США.
+%(http://www.iteris.com/itsarch/documents/physical/physical.pdf)
+
+В городе Москве в 2012 году начала свое действие ИТС.
+% http://mskit.ru/news20/no117891/
+
+Существуют аналоги, частично реализующие функционал ИТС США.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \newpage
 \section*{Problem statement}
@@ -204,13 +279,33 @@ And finally, the brief exploration of expected results will be introduced.
 3) Не должен требовать высоких вычислительных мощностей. Минимальные требования к оборужованию будут предложены в техническом задании.
 
 
-\newpage
-\section*{Related work}
-\addcontentsline{toc}{section}{Related work}
-В данной главе представлен краткий обзор существующих решений в области видеонаблюдения на автодорогах.
 
-В мире существует только одна всеобъемлющая архитектура ИТС. Предложенная транспортным департаментом США инициатива, направленная на создание единого информационного пространства, объединяющего автомобили, дорожное оборудование, диспетчерские залы и центры обработки данных по всей стране. 
-%(http://www.iteris.com/itsarch/documents/physical/physical.pdf)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -236,6 +331,34 @@ Therefore it will be appropriate to transform the image from RGB color space to 
 
 ПОСЛЕ УМЕНЬШИМ ИЗОБРАЖЕНИЕ
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \newpage
 \section*{Allocation of foreground objects}
 \addcontentsline{toc}{section}{Allocation of foreground objects}
@@ -245,11 +368,26 @@ The primary goal of the method, described in this section, is retrieving the for
 The traditional algorithms of retrieving the foreground objects location are based on pixel-by-pixel frame difference method.
 But this method also has several disadvantages.
 
+\begin{figure}[h]
+  \center{\includegraphics[width=10cm]{images/1.jpg}}
+  \caption{Some caption}
+  \label{fig:fig1}
+\end{figure}
+
+
 This method's application might lead to the  enormous amount of isolated areas.
 For this reason, this method must be modified to avoid this disadvantage and to make these areas connected with each other.
 At first, each frame has to be divided into blocks which do not overlap.
 The optimal size of a block is found empirically and depends on characteristics of the camera and the environment.
 That is why in the beginning the standard size will be assigned to each block - 3x3 pixels.
+
+\begin{figure}[h]
+  \center{\includegraphics[width=10cm]{images/2.jpg}}
+  \caption{Some caption}
+  \label{fig:fig2}
+\end{figure}
+
+
 
 After that the previous frame is subtracted from the current frame.
 Then every pixel block of the result is filtered in the following way:
@@ -314,17 +452,44 @@ To reduce the amount of these regions we use the dilation operation with pre-def
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \newpage
 \section*{Foreground segmentation}
 \addcontentsline{toc}{section}{Foreground segmentation}
 В данной главе излагается метод сегментации объектов переднего плана.
-
-
-
-
-
-
-
 
 
 

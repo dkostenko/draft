@@ -1,8 +1,8 @@
 \select@language {russian}
 \contentsline {section}{Introduction}{4}
-\contentsline {section}{Problem statement}{5}
-\contentsline {section}{Related work}{6}
-\contentsline {section}{Algorithm}{7}
-\contentsline {section}{Allocation of foreground objects}{8}
-\contentsline {section}{Foreground segmentation}{9}
-\contentsline {section}{Conclusion}{10}
+\contentsline {section}{Related work}{5}
+\contentsline {section}{Problem statement}{6}
+\contentsline {section}{Algorithm}{8}
+\contentsline {section}{Allocation of foreground objects}{9}
+\contentsline {section}{Foreground segmentation}{11}
+\contentsline {section}{Conclusion}{12}
