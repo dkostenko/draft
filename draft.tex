@@ -8,6 +8,10 @@
 \usepackage{tocloft}
 \usepackage{lastpage}
 \usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning}
+\usetikzlibrary{shapes, arrows}
 \usepackage[left=3.5cm,right=1cm,top=2cm,bottom=2cm]{geometry}
 \author{Kostenko}
 \setcounter{tocdepth}{3}%для глубины страницы содаржения
@@ -208,6 +212,38 @@ And finally, the brief exploration of expected results will be introduced.
 \newpage
 \section*{Problem statement}
 \addcontentsline{toc}{section}{Problem statement}
+%Резальтатом данной главы будет являтся список требований к алгоритму.
+%Для формальности приведем некоторые определения.
+%Т.к. видео - это последовательность кадров, то в каждый момент времени мы имеем один кадр, называемый текущим.
+%Если кадр i - текущий кадр, то кадр (i-1) - предыдущий.
+%Объектами переденго плана будем считать любые движущиеся объекты (транспортные средства, деревья, люди).
+%Определение объекта, как движущегося, зависит от характеристик камеры и окружающей обстановки.
+%Поэтому движущимися объектами назовем те объекты, которые меняют свое положение на текущем кадре, относительно предыдущего кадра.
+%Движущийся объект перед камерой или движущиеся камера в неподвижной обстановке ведет к изменения изображения.
+%Изображение видимого движения объекта называется оптическим потоком.
+%Существует несколько методов вычисления оптического потока.
+%Лукас и Канаде предложили дифференциальный подход.
+%О нем будет рассказано позже.
+%Теперь перейдем к постановке задачи.
+%Одна из наиболее важных задач в видео наблюдении состоит из идентификации объекта интереса и отслеживание его траектории в последующих кадрах.
+%Эта задача может быть разбита на подзадачи.
+%Первое, необходимо обнаружить объекты интереса или объекты переднего плана.
+%Обнаружение объектов интереса подразумевает под собой отделение переднего плана от фона на изображении.
+%После того, как мы это сделали мы получим бинарную карту движущихся объектов на изображении.
+%Далее необходимо понять, какие из движущихся объектов являются автотранспортными средствами, а какие не являются таковыми. 
+%Так как на изображении могут двигаться не только объекты переднего плана, но и объекты заднего плана (например ветви деревьев), то появляется необходимость борьбы с данным явлением.
+%Для этого ограничим на изображении область, в которой мы и будем вести видеонаблюдение. %рисунок
+%Такой областью лучше всего выделить хорошо просматриваемый промежуток автодороги.
+%Затем следить за изменениями координат обектов интереса в последующих кадрах.
+%Для вычисления оптического потока необходимо сделать несколько предположений.
+%1) изображение - это непрерывная функция от двух переменных;
+%2) яркость объекта остается неизменной в небольшой промежуток времени;
+%3) отслеживаеммый объект на новом кадре будет расположен на небольшом расстоянии относительно предыдущего кадра.
+%Первое предположение дает нам возможность использовать методы математического анализа и позволяет производить матемстические операции над изображением.
+%Второе предположение существует потому, что мы живем в реальном мире, в котором  обхекты не могут мгновенно перемещаться на большие расстояния.
+%Третье предположение необходимо потому что мы не сможем без него отслеживать объект.
+
+
 In this chapter we will state the set of requirements for the algorithm.
 As a formality we will state several definitions first.
 As any video is a sequence of frames, every moment in time we have one frame called the current frame.
@@ -226,71 +262,25 @@ It will be described later in this paper.
 
 Now let us move to the problem statement.
 
-
-
-%Резальтатом данной главы будет являтся список требований к алгоритму.
-
-%Для формальности приведем некоторые определения.
-
-%Т.к. видео - это последовательность кадров, то в каждый момент времени мы имеем один кадр, называемый текущим.
-%Если кадр i - текущий кадр, то кадр (i-1) - предыдущий.
-
-%Объектами переденго плана будем считать любые движущиеся объекты (транспортные средства, деревья, люди).
-%Определение объекта, как движущегося, зависит от характеристик камеры и окружающей обстановки.
-%Поэтому движущимися объектами назовем те объекты, которые меняют свое положение на текущем кадре, относительно предыдущего кадра.
-
-%Движущийся объект перед камерой или движущиеся камера в неподвижной обстановке ведет к изменения изображения.
-%Изображение видимого движения объекта называется оптическим потоком.
-
-%Существует несколько методов вычисления оптического потока.
-%Лукас и Канаде предложили дифференциальный подход.
-%О нем будет рассказано позже.
-
-%Теперь перейдем к постановке задачи.
-
 One of the most important problems of video surveillance is identifying the object of interest and following its trajectory through the sequence of the following frames.
 This problem can be partitioned into several sub-problems.
-In the beginning it is nesessary to find the objects of interest, which can also be called the foreground objects.
+In the beginning it is necessary to find the objects of interest, which can also be called the foreground objects.
 Finding these objects involves separation of the foreground from the background of the image.
-
 As a result we get a binary map of the moving objects.
-
 After that we need to separate vehicles from other moving objects such as trees or humans. 
 For doing so we limit the area in which we will track movement.
 A good choice will be a well-observed part of a highway. 
 Then we need to track the changes in objects of interest coordinates in the following frames.
 
-
-%Одна из наиболее важных задач в видео наблюдении состоит из идентификации объекта интереса и отслеживание его траектории в последующих кадрах.
-%Эта задача может быть разбита на подзадачи.
-%Первое, необходимо обнаружить объекты интереса или объекты переднего плана.
-%Обнаружение объектов интереса подразумевает под собой отделение переднего плана от фона на изображении.
-
-%После того, как мы это сделали мы получим бинарную карту движущихся объектов на изображении.
-
-%Далее необходимо понять, какие из движущихся объектов являются автотранспортными средствами, а какие не являются таковыми. 
-%Так как на изображении могут двигаться не только объекты переднего плана, но и объекты заднего плана (например ветви деревьев), то появляется необходимость борьбы с данным явлением.
-%Для этого ограничим на изображении область, в которой мы и будем вести видеонаблюдение. %рисунок
-%Такой областью лучше всего выделить хорошо просматриваемый промежуток автодороги.
-
-%Затем следить за изменениями координат обектов интереса в последующих кадрах.
-
 To calculate the optical flow we need to make several assumptions:
-1) An image is a continuous function of two variables. This will let us use mathematical analysis, and also carry out mathematical operations with the image;
-2) The brightness of an object remains constant in a short period of time. Without this assumption we will not be able to track the object;
-3) The location of the object of interest will not change a lot relatively to the previous frame. This is due to the fact that in real life objects do not move with the speed of light.
+\begin{enumerate}
+  \item An image is a continuous function of two variables. This will let us use mathematical analysis, and also carry out mathematical operations with the image;
+  \item The brightness of an object remains constant in a short period of time. Without this assumption we will not be able to track the object;
+  \item The location of the object of interest will not change a lot relatively to the previous frame. This is due to the fact that in real life objects do not move with the speed of light.
+\end{enumerate}
 
 
 
-%Для вычисления оптического потока необходимо сделать несколько предположений.
-
-%1) изображение - это непрерывная функция от двух переменных;
-%2) яркость объекта остается неизменной в небольшой промежуток времени;
-%3) отслеживаеммый объект на новом кадре будет расположен на небольшом расстоянии относительно предыдущего кадра.
-
-%Первое предположение дает нам возможность использовать методы математического анализа и позволяет производить матемстические операции над изображением.
-%Второе предположение существует потому, что мы живем в реальном мире, в котором  обхекты не могут мгновенно перемещаться на большие расстояния.
-%Третье предположение необходимо потому что мы не сможем без него отслеживать объект.
 
 
 
@@ -341,6 +331,14 @@ To calculate the optical flow we need to make several assumptions:
 \newpage
 \section*{Algorithm}
 \addcontentsline{toc}{section}{Algorithm}
+%В данной главе раскрывается подход к обнаружению и подсчету транспортных средств на атодорогах.
+%Т.к. видео - это последовательность кадров, то в каждый момент времени мы имеем одно изображение.
+%При получении нового кадра, сперва необходимо избавиться от шумов.
+%Для этого сгладим изображение фильтром Гаусса. %ссылка на гауса
+%Так как в дальнейшем мы не будем использовать информацию о цвете объектов, то для уменьшения количества избыточной информации переведем изображение из цветовой модели RGB в градации серого. %сказать каким алгоритмом
+%ПОСЛЕ УМЕНЬШИМ ИЗОБРАЖЕНИЕ
+
+
 
 In the following chapter an approach to the task of vehicles on motor ways detection and counting will be revealed.
 
@@ -351,14 +349,7 @@ Gauss filter must be applied in order to perform this.
 
 The information about object color seems to be not in use in further.
 Therefore it will be appropriate to transform the image from RGB color space to grayscale.
-%В данной главе раскрывается подход к обнаружению и подсчету транспортных средств на атодорогах.
-%Т.к. видео - это последовательность кадров, то в каждый момент времени мы имеем одно изображение.
-%При получении нового кадра, сперва необходимо избавиться от шумов.
-%Для этого сгладим изображение фильтром Гаусса. %ссылка на гауса
 
-%Так как в дальнейшем мы не будем использовать информацию о цвете объектов, то для уменьшения количества избыточной информации переведем изображение из цветовой модели RGB в градации серого. %сказать каким алгоритмом
-
-ПОСЛЕ УМЕНЬШИМ ИЗОБРАЖЕНИЕ
 
 
 
@@ -391,14 +382,41 @@ Therefore it will be appropriate to transform the image from RGB color space to 
 \newpage
 \section*{Allocation of foreground objects}
 \addcontentsline{toc}{section}{Allocation of foreground objects}
-The primary goal of the method, described in this section, is retrieving the foreground objects location.
 %Целью метода, описанного в данном блоке, является получение положений объектов, относящихся к переднему плану.
+%Традиционные алгоритмы получения объектов переднего плана основаны на методе попиксельного вычитания изображений.
+%Но у данного метода есть недостаток.
+%С помощью него мы можем получить большое количество несвязных областей. %показать картинку
+%Поэтому, для получения более связных областей, необходимо модифицировать данный метод.
+%Сперва разобьем каждый кадр на непересекающиеся блоки.
+%Оптимальный размер блока определяется империческии и зависит от характеристи камеры и окружающей обстановки.
+%Поэтому, для начала, зададим размер блока равный 3х3 пикселей.
+%Затем попиксельно вычтем предыдущий кадр из текущего.
+%В конце, отфильтруем пиксели каждого блока у полученной разности изображений таким образом:
+%если количество пикселей в каждом блоке, относящихся к объектам переднего плана, превышает заданный порог, то будем считать, что блок принадлежит переднему плану.
+%В инном случаем будем считать обратное.
+%В результате мы получим бинарное изображение объектов переднего плана.%показать картинку
+%Но на данном изображении могут присутствовать шумы.
+%Поэтому необходимо обработать изображение морфологическими операциями.
+%Применим эррозию, а затем наращивание. % dilation
+%Так же необходимо заметить, что метод вычитания предыдущего кадра из текущего дает хороший отклик на границе движущегося объекта.
+%Но в оласти движущегося объекта наблюдается обратный эффект. %показать картинку
+%В случае, когда транспортное средство имеет большие размеры, вероятность определить транспортное средство, как объект переднего плана, существенно уменьшается.
+%Чтобы избежать подобного эффекта введем еще 2 понятия: краткосрочная модель переднего плана и долгострочная модель  переднего плана.
+%Краткосрочной моделью переднего плана является такая модель, которая получается в результате применения последовательности действий, описанных выше.
+%Долгосрочной моделью переднего плана назовем попиксельную сумму N моедлей переднего плана, где N - натуральное число и больше 1.
+%N зависит от характеристик камеры и окружающей среды вычисляется империческим путем.
+%Т.к. отслеживаемые объекты движутся, то при вычислении долгосрочной модели переднего плана мы получим более свзные области предполагаемых транспортных средств. % показать кратинку
+%На изображении видно, что область объекта может разделиться на несколько областей.
+%Для уменьшения количества связных областей применим морфологическую операцию наращивание.
 
+
+
+The primary goal of the method, described in this section, is retrieving the foreground objects location.
 The traditional algorithms of retrieving the foreground objects location are based on pixel-by-pixel frame difference method.
 But this method also has several disadvantages.
 
 \begin{figure}[h]
-  \center{\includegraphics[width=10cm]{images/1.jpg}}
+  \center{\includegraphics[width=10cm]{1.jpg}}
   \caption{Some caption}
   \label{fig:fig1}
 \end{figure}
@@ -409,58 +427,95 @@ For this reason, this method must be modified to avoid this disadvantage and to 
 At first, each frame has to be divided into blocks which do not overlap.
 The optimal size of a block is found empirically and depends on characteristics of the camera and the environment.
 That is why in the beginning the standard size will be assigned to each block - 3x3 pixels.
+In Fig. \ref{fig:fig2}.
 
 \begin{figure}[h]
-  \center{\includegraphics[width=10cm]{images/2.jpg}}
-  \caption{Some caption}
+  \center{\includegraphics[width=10cm]{2.jpg}}
+  \vspace{-5ex}
+  \caption{\textit{The result}}
   \label{fig:fig2}
 \end{figure}
+
+
+
+
+
+
+\begin{figure}[ht]
+\centering
+
+
+\tikzstyle{line} = [draw, -stealth, thick]
+\tikzstyle{block} = [draw, rectangle, fill=white!50, text width=8em, text centered, minimum height=15mm, node distance=10em]
+\begin{tikzpicture}
+
+\node [block] (video_clip) {input video clip};
+
+\node [block, below of=video_clip, yshift=2em] (to_gray) {transform frames to grayscale};
+
+\node [block, below of=to_gray, yshift=2em, xshift=-3em] (frame_i) {frame i};
+\node [block, left of=frame_i, xshift=-1em] (frame_i_plus_one) {frame i+1};
+\node [block, right of=frame_i, xshift=0em] (frame_i_plus_two) {frame i+2};
+\node [block, right of=frame_i_plus_two, xshift=1em] (frame_i_plus_three) {frame i+3};
+
+\node [block, below of=to_gray, yshift=-5em] (sum_of_diff) {the sum of frame substractions};
+
+\node [block, below of=sum_of_diff, yshift=2em] (binarization) {binarization};
+
+\node [block, below of=binarization, yshift=2em] (segmentation) {image segmentation};
+
+\node [block, below of=segmentation, yshift=2em, xshift=-6em] (detection) {vehicle detection};
+\node [block, below of=segmentation, yshift=2em, xshift=6em] (tuning) {vehicle tuning};
+
+\node [block, below of=segmentation, yshift=-6em] (counting) {vehicle counting};
+%arrows
+\path [line] (video_clip) -- (to_gray);
+\path [line] (to_gray) -- (frame_i);
+\path [line] (to_gray) -- (frame_i_plus_one);
+\path [line] (to_gray) -- (frame_i_plus_two);
+\path [line] (to_gray) -- (frame_i_plus_three);
+
+\path [line] (frame_i) -- (sum_of_diff);
+\path [line] (frame_i_plus_one) -- (sum_of_diff);
+\path [line] (frame_i_plus_two) -- (sum_of_diff);
+\path [line] (frame_i_plus_three) -- (sum_of_diff);
+
+\path [line] (sum_of_diff) -- (binarization);
+
+\path [line] (binarization) -- (segmentation);
+
+\path [line] (segmentation) -- (detection);
+\path [line] (segmentation) -- (tuning);
+
+\path [line] (detection) -- (counting);
+\path [line] (tuning) -- (counting);
+\end{tikzpicture}
+
+
+\end{figure}
+
+
+
+
+ 
 
 
 
 After that the previous frame is subtracted from the current frame.
 Then every pixel block of the result is filtered in the following way:
 if the amount of foreground objects pixels in every block is more than some pre-defined threshold, this block is considered to be the foreground
-otherwise, it is concidered to be the background
+otherwise, it is considered to be the background
 
 As a result we get the binary image of the foreground objects.
 But this image is not going to be perfect, it will definately have noise.
 For that reason the image must be processed using morphological operations.
 These operations are the following: erosion and dilation.
 
-It is nesessary to consider that the method of subtracting the previous frame from the currrent frame gives good response near the moving object border. 
+It is nesessary to consider that the method of subtracting the previous frame from the current frame gives good response near the moving object border. 
 However, inside the objects borders the response is NOT SO GOOD.
 If the vehicle is relatively large, the probability of its recognition as an object of the foreground is LITTLE.
 
 To get rid of this effect let us consider two definitions: sort-term model of the foreground and long-term model of the foreground.
-
-
-%Традиционные алгоритмы получения объектов переднего плана основаны на методе попиксельного вычитания изображений.
-%Но у данного метода есть недостаток.
-%С помощью него мы можем получить большое количество несвязных областей. %показать картинку
-
-%Поэтому, для получения более связных областей, необходимо модифицировать данный метод.
-%Сперва разобьем каждый кадр на непересекающиеся блоки.
-%Оптимальный размер блока определяется империческии и зависит от характеристи камеры и окружающей обстановки.
-%Поэтому, для начала, зададим размер блока равный 3х3 пикселей.
-%Затем попиксельно вычтем предыдущий кадр из текущего.
-
-%В конце, отфильтруем пиксели каждого блока у полученной разности изображений таким образом:
-%если количество пикселей в каждом блоке, относящихся к объектам переднего плана, превышает заданный порог, то будем считать, что блок принадлежит переднему плану.
-%В инном случаем будем считать обратное.
-
-%В результате мы получим бинарное изображение объектов переднего плана.%показать картинку
-%Но на данном изображении могут присутствовать шумы.
-%Поэтому необходимо обработать изображение морфологическими операциями.
-%Применим эррозию, а затем наращивание. % dilation
-
-
-
-%Так же необходимо заметить, что метод вычитания предыдущего кадра из текущего дает хороший отклик на границе движущегося объекта.
-%Но в оласти движущегося объекта наблюдается обратный эффект. %показать картинку
-%В случае, когда транспортное средство имеет большие размеры, вероятность определить транспортное средство, как объект переднего плана, существенно уменьшается.
-
-%Чтобы избежать подобного эффекта введем еще 2 понятия: краткосрочная модель переднего плана и долгострочная модель  переднего плана.
 
 The short-term model is the model which we get, after applying the steps stated above.
 The long-term model is the pixel-by-pixel sum of N previous short-term foreground models, where N is NATURAL and more than 1.  
@@ -470,13 +525,7 @@ As the objects that we want to track are moving, calculating the long-term model
 
 As can be seen from FIGURE 1 the object region can be separated into several regions.
 To reduce the amount of these regions we use the dilation operation with pre-defined window.
-%Краткосрочной моделью переднего плана является такая модель, которая получается в результате применения последовательности действий, описанных выше.
-%Долгосрочной моделью переднего плана назовем попиксельную сумму N моедлей переднего плана, где N - натуральное число и больше 1.
-%N зависит от характеристик камеры и окружающей среды вычисляется империческим путем.
 
-%Т.к. отслеживаемые объекты движутся, то при вычислении долгосрочной модели переднего плана мы получим более свзные области предполагаемых транспортных средств. % показать кратинку
-%На изображении видно, что область объекта может разделиться на несколько областей.
-%Для уменьшения количества связных областей применим морфологическую операцию наращивание.
 
 
 
