@@ -170,18 +170,41 @@ And finally, the brief exploration of expected results will be introduced.
 \newpage
 \section*{Related work}
 \addcontentsline{toc}{section}{Related work}
-В данной главе представлен краткий обзор существующих решений в области видеонаблюдения на автодорогах.
-
-В мире существует только одна всеобъемлющая архитектура ИТС. Предложенная транспортным департаментом США инициатива, направленная на создание единого информационного пространства, объединяющего автомобили, дорожное оборудование, диспетчерские залы и центры обработки данных по всей стране. Данная транспортная система запатентована правительством США.
+%В данной главе представлен краткий обзор существующих решений в области видеонаблюдения на автодорогах.
+%В мире существует только одна всеобъемлющая архитектура ИТС. Предложенная транспортным департаментом США инициатива, направленная на создание единого информационного пространства, объединяющего автомобили, дорожное оборудование, диспетчерские залы и центры обработки данных по всей стране. Данная транспортная система запатентована правительством США.
 %(http://www.iteris.com/itsarch/documents/physical/physical.pdf)
-
-В городе Москве в 2012 году начала свое действие ИТС.
+%В городе Москве в 2012 году начала свое действие российская ИТС.
 % http://mskit.ru/news20/no117891/
+%Существуют аналоги, частично реализующие функционал ИТС США.
+%Данные системы являются закрытыми.
+%Но существует множество проектов с меньшим масштабом и функционалом имеющие открытые описания применяемых методов.
+%Как было отмеченно, одной из задач таких систем является подсчет количества транспортных средств на автодороге.
+%И чаще всего алгоритм подсчета транспортных средств на автодороге выглядит так:
+%1) создать модель фона
+%2) вычесть из текущего изображения модель фона и получить движущиеся объекты переднего плана (транспортные средства)
+%3) посчитать количество транспортных средств, пересекающих линию интереса
+%4) обновить модель фона
+%Наша работа отличается тем, что мы предлагаем альтернативный вариант подсчета количества транспортных средств без заранее смоделированного фона.
+%Используя наш подход выявление транспортных средст базируется на сумме разностей рядом стоящих кадров видеопоследовательности и выделения связных компонент на изображении.
 
-Существуют аналоги, частично реализующие функционал ИТС США.
+In this section a short review of existing highway video surveillance solutions is presented.
+There is only one full ITS architecture, developed by the transportation department of the US. It focuses on creating a unified information environment, that connects automobiles, road equipment, dispatch centres,  and data centres around the country. This system has been patented by the US government.
 
+There are several analogues around the world that are based on the US system. In 2012 a russian ITS was rolled out in Moscow. All of these systems are commercial and there are no ways of analysing there methods.
+However, there are also several open-source projects of smaller scale.
+As has been mentioned before, one of the main tasks of such systems is counting vehicles on the highway.
 
+Most of the times the vehicle counting algorithm consists of the following steps:
 
+1) create the background model;
+2) subrtact this model from the current image and obtain all moving objects of the foreground (vehicles);
+3) count the amount of vehicles that has crossed the line of interest;
+4) update the model of the background.
+
+Examples of such an approach: ****\
+
+Our work uses a different approach. We suggest an alternative method for counting vehicles without the pre-modelled background.
+It is based on the differences sum  of the neighbouring frames of a video sequence and highlighting the connected areas.
 
 
 
@@ -441,12 +464,12 @@ In Fig. \ref{fig:fig2}.
 
 
 
-\begin{figure}[ht]
+\begin{figure}[h]
 \centering
 
 
 \tikzstyle{line} = [draw, -stealth, thick]
-\tikzstyle{block} = [draw, rectangle, fill=white!50, text width=8em, text centered, minimum height=15mm, node distance=10em]
+\tikzstyle{block} = [draw, rectangle, fill=white!50, text width=8em, text centered, minimum height=13mm, node distance=8em]
 \begin{tikzpicture}
 
 \node [block] (video_clip) {input video clip};
@@ -467,7 +490,7 @@ In Fig. \ref{fig:fig2}.
 \node [block, below of=segmentation, yshift=2em, xshift=-6em] (detection) {vehicle detection};
 \node [block, below of=segmentation, yshift=2em, xshift=6em] (tuning) {vehicle tuning};
 
-\node [block, below of=segmentation, yshift=-6em] (counting) {vehicle counting};
+\node [block, below of=segmentation, yshift=-4em] (counting) {vehicle counting};
 %arrows
 \path [line] (video_clip) -- (to_gray);
 \path [line] (to_gray) -- (frame_i);
@@ -591,10 +614,13 @@ To reduce the amount of these regions we use the dilation operation with pre-def
 1 page
 
 
+
 \newpage
-\renewcommand\refname{Bibliography}
-\bibliographystyle{plain}
-\bibliography{draft}
+\section*{Bibliography}
+\addcontentsline{toc}{section}{Bibliography}
+1) Real Time Vehicle Detection and Counting Method for Unsupervised Traffic Video on Highways
+Mrs. P.M.Daigavane † and Dr. P.R.Bajaj ††,
+S. D. College of Engineering, M.S., INDIA
 
 
 
