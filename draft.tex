@@ -88,8 +88,7 @@ Moscow\\ \number\year
 
 
 \newpage
-\section*{Introduction}
-\addcontentsline{toc}{section}{Introduction}
+\section{Introduction}
 Nowadays it is possible to notice high grow of vehicles in all Russian cities.
 According to DPS data annual growth of cars number is 110 - 120 thousand.
 As a result the significance of traffic conjunction problem increases.
@@ -168,8 +167,7 @@ And finally, the brief exploration of expected results will be introduced.
 
 
 \newpage
-\section*{Related work}
-\addcontentsline{toc}{section}{Related work}
+\section{Related work}
 %В данной главе представлен краткий обзор существующих решений в области видеонаблюдения на автодорогах.
 %В мире существует только одна всеобъемлющая архитектура ИТС. Предложенная транспортным департаментом США инициатива, направленная на создание единого информационного пространства, объединяющего автомобили, дорожное оборудование, диспетчерские залы и центры обработки данных по всей стране. Данная транспортная система запатентована правительством США.
 %(http://www.iteris.com/itsarch/documents/physical/physical.pdf)
@@ -233,8 +231,7 @@ It is based on the differences sum  of the neighbouring frames of a video sequen
 
 
 \newpage
-\section*{Problem statement}
-\addcontentsline{toc}{section}{Problem statement}
+\section{Problem statement}
 %Резальтатом данной главы будет являтся список требований к алгоритму.
 %Для формальности приведем некоторые определения.
 %Т.к. видео - это последовательность кадров, то в каждый момент времени мы имеем один кадр, называемый текущим.
@@ -308,7 +305,7 @@ To calculate the optical flow we need to make several assumptions:
 
 
 
-У данного подхода есть свои существунные недостатки.
+У нашего подхода есть свои существунные недостатки.
 Например, мы предпологаем, что камера является неподвижной.
 Хотя в реальных условиях камера может быть подвержена движению, от порывов ветра.
 Или на объектив камеры могут попадать капельки дождя, которые могут быть зафиксированы, как объекты переднего плана.
@@ -318,7 +315,7 @@ To calculate the optical flow we need to make several assumptions:
 Сформулируем требования к алгоритму:
 1) Работать без каких-либо предварительных данных об автодороге
 2) Обработка потока данных в реальном времени
-3) Не должен требовать высоких вычислительных мощностей. Минимальные требования к оборужованию будут предложены в техническом задании.
+3) Не должен требовать высоких вычислительных мощностей. Минимальные требования к оборудованию будут предложены в техническом задании, на стадии написания данной бумаги их невозможно сформулировать.
 
 
 
@@ -352,14 +349,12 @@ To calculate the optical flow we need to make several assumptions:
 
 
 \newpage
-\section*{Algorithm}
-\addcontentsline{toc}{section}{Algorithm}
+\section{Algorithm}
 %В данной главе раскрывается подход к обнаружению и подсчету транспортных средств на атодорогах.
 %Т.к. видео - это последовательность кадров, то в каждый момент времени мы имеем одно изображение.
 %При получении нового кадра, сперва необходимо избавиться от шумов.
 %Для этого сгладим изображение фильтром Гаусса. %ссылка на гауса
 %Так как в дальнейшем мы не будем использовать информацию о цвете объектов, то для уменьшения количества избыточной информации переведем изображение из цветовой модели RGB в градации серого. %сказать каким алгоритмом
-%ПОСЛЕ УМЕНЬШИМ ИЗОБРАЖЕНИЕ
 
 
 
@@ -372,6 +367,17 @@ Gauss filter must be applied in order to perform this.
 
 The information about object color seems to be not in use in further.
 Therefore it will be appropriate to transform the image from RGB color space to grayscale.
+Also, for the sake of increasing the processing performance it is nesassary to reduce the size of the image.
+But it is possible only if the camera allows to do so.
+For instance, if the camera shoots with a resolution of more than 640 by 480 pixels, every frame of the videostream can be reduced to this resolution to increase the processing performance of every frame.
+
+After all of the images pre-processing procedures, the foreground objects are detected.
+
+%Так же, для увеличения скорости обработки изображения нужно уменьшить его размер.
+%Но это возможно сделать только в том случвае, если характеристики камеры позволяют это сделать. 
+%Например, если камера снимает с разрешением большим чем 640x480, то можно его уменьшить до 640×480, что увеличит скорость обработки каждого кадра.
+
+%После всех операций предобработки кадров выделим объекты переднего плана.
 
 
 
@@ -393,18 +399,7 @@ Therefore it will be appropriate to transform the image from RGB color space to 
 
 
 
-
-
-
-
-
-
-
-
-
-\newpage
-\section*{Allocation of foreground objects}
-\addcontentsline{toc}{section}{Allocation of foreground objects}
+\subsection{Allocation of foreground objects}
 %Целью метода, описанного в данном блоке, является получение положений объектов, относящихся к переднему плану.
 %Традиционные алгоритмы получения объектов переднего плана основаны на методе попиксельного вычитания изображений.
 %Но у данного метода есть недостаток.
@@ -440,12 +435,13 @@ But this method also has several disadvantages.
 
 \begin{figure}[h]
   \center{\includegraphics[width=10cm]{1.jpg}}
-  \caption{Some caption}
+  \vspace{-5ex}
+  \caption{Pixel-by-pixel frame difference method.}
   \label{fig:fig1}
 \end{figure}
 
 
-This method's application might lead to the  enormous amount of isolated areas.
+This method's application might lead to the enormous amount of isolated areas.
 For this reason, this method must be modified to avoid this disadvantage and to make these areas connected with each other.
 At first, each frame has to be divided into blocks which do not overlap.
 The optimal size of a block is found empirically and depends on characteristics of the camera and the environment.
@@ -455,8 +451,77 @@ In Fig. \ref{fig:fig2}.
 \begin{figure}[h]
   \center{\includegraphics[width=10cm]{2.jpg}}
   \vspace{-5ex}
-  \caption{\textit{The result}}
+  \caption{\textit{The result.}}
   \label{fig:fig2}
+\end{figure}
+
+
+After that the previous frame is subtracted from the current frame.
+Then every pixel block of the result is filtered in the following way:
+if the amount of foreground objects pixels in every block is more than some pre-defined threshold, this block is considered to be the foreground
+otherwise, it is considered to be the background
+
+As a result we get the binary image of the foreground objects.
+But this image is not going to be perfect, it will definitely have noise.
+For that reason the image must be processed using morphological operations.
+These operations are the following: erosion and dilation.
+
+It is necessary to consider that the method of subtracting the previous frame from the current frame gives good response near the moving object border. 
+However, inside the objects borders the response is NOT SO GOOD.
+If the vehicle is relatively large, the probability of its recognition as an object of the foreground is LITTLE.
+
+To get rid of this effect let us consider two definitions: sort-term model of the foreground and long-term model of the foreground.
+
+The short-term model is the model which we get, after applying the steps stated above.
+The long-term model is the pixel-by-pixel sum of N previous short-term foreground models, where N is a positive integer and more than 1.  
+N is found empirically and depends on characteristics of the camera and the environment.
+
+
+
+
+\begin{figure}[h]
+	\begin{minipage}[h]{0.2\linewidth}
+		\center{\includegraphics[width=0.2\linewidth]{frame1} \\ a)}
+	\end{minipage}
+	\hfill
+
+	\begin{minipage}[h]{0.2\linewidth}
+		\center{\includegraphics[width=0.2\linewidth]{frame2} \\ b)}
+	\end{minipage}
+	\hfill
+
+	\begin{minipage}[h]{0.2\linewidth}
+		\center{\includegraphics[width=0.2\linewidth]{frame3} \\ c)}
+	\end{minipage}
+	\hfill
+
+	\begin{minipage}[h]{0.2\linewidth}
+		\center{\includegraphics[width=0.2\linewidth]{frame4} \\ d)}
+	\end{minipage}
+	\hfill
+
+	\begin{minipage}[h]{0.2\linewidth}
+		\center{\includegraphics[width=0.2\linewidth]{frame_sum} \\ e)}
+	\end{minipage}
+
+	\caption{Зависимость сигнала от шума для данных.}
+	\label{ris:image1}
+\end{figure}
+
+
+
+As the objects that we want to track are moving, calculating the long-term model of  the foreground we get the object regions, which is more connected.
+
+As can be seen from fig.\ref{fig:fig3} the object region can be separated into several regions.
+To reduce the amount of these regions we use the dilation operation with pre-defined window.
+
+
+
+
+\begin{figure}[h]
+  \center{\includegraphics[width=1cm]{frame4}}
+  \caption{\textit{Object, separated into several regions.}}
+  \label{fig:fig3}
 \end{figure}
 
 
@@ -464,10 +529,144 @@ In Fig. \ref{fig:fig2}.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Foreground segmentation}
+
+
+%В данной главе излагается метод сегментации объектов переднего плана.
+After creating the binary map of the foreground objects, it is nessasery to give every object a certain number.
+A straightforward segmentation algorithm is used.
+
+%После того, как мы получили бинарную карту объектов переднего плана, то необходимо пронумеровать их.
+%Будем использовать простейший алгоритм сегментации.
+
+Suppose, we obtained the binary image.
+In our case white pixels stand for the background, and black pixels stand for the potential vehicles.
+The mapping from the original image to the segmentated image is mono-semantic. 
+
+%Итак, пусть у нас имеется бинарное изображение.
+%В нашем случае 0 - это фон, а 1 - потенциальное транспортнгое средство.
+%В данном случае разметка является однозначной при фиксированном виде связности. 
+
+We will call an array of pixels connected if and only if each pixel has at least one neighbouring pixel belonging to this array.
+There are two ways for pixels to be connected:
+1) 4 connected - the neighbours of the pixel are only the following pixels: the one above, the one below, the one to the right and the one to the left of it;
+2) 8 connected - the neighbours of the pixel are the pixels above, below, to the right, to the left, and the diagonal pixels.
+
+%Связным множеством будем называть такое множество пикселей, у каждого пикселя которого есть хотя бы один сосед, принадлежащий данному множеству.
+
+%Существует 2 вида связности:
+%1) 4 связность - соседями для пикселя считаются 4 пикселя: сверху, слева, справа, снизу.
+%2) 8 связность - соседями для пикселя считаются 8 пикселей, т.е. все к нему прилежащие, в том числе и по диагонали.
+
+
+\begin{figure}[h]
+\begin{minipage}[h]{0.49\linewidth}
+\center{\includegraphics[width=0.5\linewidth]{four-svyaznost.png} \\ a)}
+\end{minipage}
+\hfill
+\begin{minipage}[h]{0.49\linewidth}
+\center{\includegraphics[width=0.5\linewidth]{eight-svyaznost.png} \\ b)}
+\end{minipage}
+\caption{(a) 4-connected, (b) 8-connected}
+\label{ris:image1}
+\end{figure}
+
+
+%Мы будем использовать 8-ми связность.
+In our approach the 8 connected way is used, because it gives a significant raise in precision.
+
+There are generally known two methods of image marking: recursive and iterative.
+The shortcomings of the recursive approach are the following:
+1) a great amount of memory is needed for it;
+2) it is rather slow, compared to the iterative method.
+The iterative method is an alternative to the recursive approach. It can be often met in literature by the name of: "Sequential scanning algorithm".
+Let us present it in detailed steps:
+1) To be specific, we start processing the pixels of the image from the left-top corner, going from the top to the bottom and from the left to the right.
+2) While cycling through the pixels of the image we ignore the background pixels, and mark the current pixel with the color of the top-left neighbouring pixel.
+==============
+After processing the image, we need to go through the array of pixels again and do the marking procedure with the consideration of areas equality,
+As a result, an image is obtained, where each connected area is marked with its own number.
+
+%Существует 2 известных метода разметки: рекурсивный и итеративный.
+%Недостатком рекурсивного метода является медленная работа и большой расход памяти.
+%Существует и итеративный метод, который в литературе часто встречается под названием "алгоритм последовательного сканирования". Опишем и его:
+%Начинаем обход изображения, для определённости, из левого верхнего угла сверху вниз, справа налево. 
+%При обходе пропускаем пиксели фона. 
+Понятно, что при таком порядке обхода у текущего рассматриваемого пикселя верхний и левый сосед уже должны быть размечены.
+
+%После того как мы обошли всю картинку, нам нужно совершить ещё один обход и произвести переразметку с учётом эквивалентности областей.
+
+%В результате мы получим изображение, на котором каждая связная область помечена своим номером.
+
+
+Now we cut out the areas which can not be classified as vehicles.
+To do so, we need to count the amount of pixels in each area. The areas in which the amount of pixels exceeds a certain treshold are eliminated.
+This treshold is found empirically and will depend on the camera characteristics and the environment conditions.
+At the time of writing we can not tell exactly what the treshold is going to be.
+That is why, for now we will just ignore it and consider all of the connected areas to be the vehicles that we are looking for. 
+%Теперь необходимо отбросить области, которые не могут быть классифицированы, как транспортные средства.
+%Для этого посчитаем количество пикселей у каждой области и отбросим те, у которых количество пикселей не превышает заранее установленный порог.
+%Данный порог будет установлен империческим путем и будет зависить от характеристик камеры и от окружающей среды.
+%На данном этапе написания работы мы не можем сказать, каким значением можно инициализировать данный порог.
+%Поэтому просто проигнорируем его существование и будем считать, что все связные области в пределах области интереса являются транспортными средствами.
+
+
+
+
+
+
+
+
+\subsection{Vehicle tracking and counting}
+%здесь описание отслеживания существующих такчек и +1 к счетчику
+
+
+
+
+
+
+
+
+
+Приведем содержание алгоритма и общую схему алгоритма.
+
+1) Перевести изображение в серое
+2) обработать изображение фильтром гауса (против шумов)
+3) вычесть из текущего изображения предыдущее
+4) наложить друг на друга n предыдущих разностей (для получения транспортного средства) Делать это каждые 5 кадров
+5) выделить связные области, которые и будут предположительно транспортными средствами 
+6) сопоставить текущия связные области с такими же на предыыдущих кадрах или инициализировать новые
+7) если такая связна область пересекает линию интереса, то прибавляем 1 к счетчику
+
 \begin{figure}[h]
 \centering
-
-
 \tikzstyle{line} = [draw, -stealth, thick]
 \tikzstyle{block} = [draw, rectangle, fill=white!50, text width=8em, text centered, minimum height=13mm, node distance=8em]
 \begin{tikzpicture}
@@ -513,70 +712,11 @@ In Fig. \ref{fig:fig2}.
 \path [line] (detection) -- (counting);
 \path [line] (tuning) -- (counting);
 \end{tikzpicture}
-
-
 \end{figure}
 
 
 
 
- 
-
-
-
-After that the previous frame is subtracted from the current frame.
-Then every pixel block of the result is filtered in the following way:
-if the amount of foreground objects pixels in every block is more than some pre-defined threshold, this block is considered to be the foreground
-otherwise, it is considered to be the background
-
-As a result we get the binary image of the foreground objects.
-But this image is not going to be perfect, it will definately have noise.
-For that reason the image must be processed using morphological operations.
-These operations are the following: erosion and dilation.
-
-It is nesessary to consider that the method of subtracting the previous frame from the current frame gives good response near the moving object border. 
-However, inside the objects borders the response is NOT SO GOOD.
-If the vehicle is relatively large, the probability of its recognition as an object of the foreground is LITTLE.
-
-To get rid of this effect let us consider two definitions: sort-term model of the foreground and long-term model of the foreground.
-
-The short-term model is the model which we get, after applying the steps stated above.
-The long-term model is the pixel-by-pixel sum of N previous short-term foreground models, where N is NATURAL and more than 1.  
-N is found empirically and depends on characteristics of the camera and the environment.
-
-As the objects that we want to track are moving, calculating the long-term model of  the foreground we get the object regions, which is more connected.
-
-As can be seen from FIGURE 1 the object region can be separated into several regions.
-To reduce the amount of these regions we use the dilation operation with pre-defined window.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -588,36 +728,13 @@ To reduce the amount of these regions we use the dilation operation with pre-def
 
 
 \newpage
-\section*{Foreground segmentation}
-\addcontentsline{toc}{section}{Foreground segmentation}
-В данной главе излагается метод сегментации объектов переднего плана.
-
-
-
-
-
-Приведем содержание алгоритма, затем опишем каждый пункт.
-
-1) Перевести изображение в серое
-2) обработать изображение фильтром гауса (против шумов)
-3) вычесть из текущего изображения предыдущее
-4) наложить друг на друга n предыдущих разностей (для получения транспортного средства) Делать это каждые 5 кадров
-5) выделить связные области, которые и будут предположительно транспортными средствами 
-6) сопоставить текущия связные области с такими же на предыыдущих кадрах или инициализировать новые
-7) если такая связна область пересекает линию интереса, то прибавляем 1 к счетчику
-
-
-
-\newpage
-\section*{Conclusion}
-\addcontentsline{toc}{section}{Conclusion}
+\section{Conclusion}
 1 page
 
 
 
 \newpage
-\section*{Bibliography}
-\addcontentsline{toc}{section}{Bibliography}
+\section{Bibliography}
 1) Real Time Vehicle Detection and Counting Method for Unsupervised Traffic Video on Highways
 Mrs. P.M.Daigavane † and Dr. P.R.Bajaj ††,
 S. D. College of Engineering, M.S., INDIA

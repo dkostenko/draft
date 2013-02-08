@@ -1,8 +1,10 @@
 \select@language {russian}
-\contentsline {section}{Introduction}{4}
-\contentsline {section}{Related work}{5}
-\contentsline {section}{Problem statement}{6}
-\contentsline {section}{Algorithm}{8}
-\contentsline {section}{Allocation of foreground objects}{9}
-\contentsline {section}{Foreground segmentation}{11}
-\contentsline {section}{Conclusion}{12}
+\contentsline {section}{\numberline {1}Introduction}{4}
+\contentsline {section}{\numberline {2}Related work}{5}
+\contentsline {section}{\numberline {3}Problem statement}{6}
+\contentsline {section}{\numberline {4}Algorithm}{8}
+\contentsline {subsection}{\numberline {4.1}Allocation of foreground objects}{8}
+\contentsline {subsection}{\numberline {4.2}Foreground segmentation}{10}
+\contentsline {subsection}{\numberline {4.3}Vehicle tracking and counting}{11}
+\contentsline {section}{\numberline {5}Conclusion}{12}
+\contentsline {section}{\numberline {6}Bibliography}{13}

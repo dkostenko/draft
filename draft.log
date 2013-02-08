@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  7 FEB 2013 02:11
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  8 FEB 2013 14:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -991,7 +991,11 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 LaTeX Font Info:    Try loading font information for T2A+cmr on input line 4.
  (/usr/local/texlive/2012/texmf-dist/tex/latex/cyrillic/t2acmr.fd
 File: t2acmr.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
-))
+)
+
+LaTeX Warning: Label `ris:image1' multiply defined.
+
+)
 \openout1 = `draft.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
@@ -1015,7 +1019,7 @@ Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             http://www.ctan.org/tex-archive/ 
 (lastpage)             install/macros/latex/contrib/pageslts.tds.zip
 (lastpage)             ! on input line 21.
-(/usr/local/texlive/2012/texmf-dist/tex/context/base/supp-pdf.mkii
+ (/usr/local/texlive/2012/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count125
 \scratchdimen=\dimen167
@@ -1124,45 +1128,111 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 \openout4 = `draft.toc'.
 
 
-[3] [4] [5] [6] [7] [8] <images/1.jpg, id=35, 562.1pt x 421.575pt>
+[3] [4] [5] [6] [7] <images/1.jpg, id=32, 562.1pt x 421.575pt>
 File: images/1.jpg Graphic file (type jpg)
 
 <use images/1.jpg>
-Package pdftex.def Info: images/1.jpg used on input line 419.
+Package pdftex.def Info: images/1.jpg used on input line 432.
 (pdftex.def)             Requested size: 284.52756pt x 213.39221pt.
- <images/2.jpg, id=36, 1284.8pt x 703.62875pt>
+ <images/2.jpg, id=33, 1284.8pt x 703.62875pt>
 File: images/2.jpg Graphic file (type jpg)
 
 <use images/2.jpg>
-Package pdftex.def Info: images/2.jpg used on input line 433.
+Package pdftex.def Info: images/2.jpg used on input line 447.
 (pdftex.def)             Requested size: 284.52756pt x 155.81877pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[9 <./images/1.jpg> <./images/2.jpg>] [10] [11] [12] (./draft.bbl)
+[8 <./images/1.jpg>] <images/frame1.png, id=38, 67.25125pt x 51.19125pt>
+File: images/frame1.png Graphic file (type png)
+
+<use images/frame1.png>
+Package pdftex.def Info: images/frame1.png used on input line 479.
+(pdftex.def)             Requested size: 18.77824pt x 14.29361pt.
+ <images/frame2.png, id=39, 64.24pt x 54.2025pt>
+File: images/frame2.png Graphic file (type png)
+
+<use images/frame2.png>
+Package pdftex.def Info: images/frame2.png used on input line 484.
+(pdftex.def)             Requested size: 18.77824pt x 15.84402pt.
+ <images/frame3.png, id=40, 77.28876pt x 58.2175pt>
+File: images/frame3.png Graphic file (type png)
+
+<use images/frame3.png>
+Package pdftex.def Info: images/frame3.png used on input line 489.
+(pdftex.def)             Requested size: 18.77824pt x 14.1448pt.
+ <images/frame4.png, id=41, 76.285pt x 65.24374pt>
+File: images/frame4.png Graphic file (type png)
+
+<use images/frame4.png>
+Package pdftex.def Info: images/frame4.png used on input line 494.
+(pdftex.def)             Requested size: 18.77824pt x 16.06001pt.
+ <images/frame_sum.png, id=42, 90.3375pt x 61.22874pt>
+File: images/frame_sum.png Graphic file (type png)
+
+<use images/frame_sum.png>
+Package pdftex.def Info: images/frame_sum.png used on input line 499.
+(pdftex.def)             Requested size: 18.77824pt x 12.7276pt.
+File: images/frame4.png Graphic file (type png)
+ <use images/frame4.png>
+Package pdftex.def Info: images/frame4.png used on input line 517.
+(pdftex.def)             Requested size: 28.45274pt x 24.33492pt.
+ [9 <./images/2.jpg> <./images/frame1.png> <./images/frame2.png> <./images/fram
+e3.png> <./images/frame4.png> <./images/frame_sum.png>]
+<images/four-svyaznost.png, id=47, 82.3075pt x 60.225pt>
+File: images/four-svyaznost.png Graphic file (type png)
+
+<use images/four-svyaznost.png>
+Package pdftex.def Info: images/four-svyaznost.png used on input line 574.
+(pdftex.def)             Requested size: 115.02155pt x 84.16461pt.
+
+<images/eight-svyaznost.png, id=48, 82.3075pt x 60.225pt>
+File: images/eight-svyaznost.png Graphic file (type png)
+
+<use images/eight-svyaznost.png>
+Package pdftex.def Info: images/eight-svyaznost.png used on input line 578.
+(pdftex.def)             Requested size: 115.02155pt x 84.16461pt.
+ [10 <./images/four-svyaznost.png> <./images/eight-svyaznost.png>]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[11] [12]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 703.
+
+ (/usr/local/texlive/2012/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 703.
+
 
 AED: lastpage setting LastPage
-[13] [14] (./draft.aux) ) 
+[13] [14] (./draft.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 14696 strings out of 493488
- 282405 string characters out of 3141326
- 363180 words of memory out of 3000000
- 17657 multiletter control sequences out of 15000+200000
- 13207 words of font info for 38 fonts, out of 3000000 for 9000
+ 14748 strings out of 493488
+ 283495 string characters out of 3141326
+ 363226 words of memory out of 3000000
+ 17700 multiletter control sequences out of 15000+200000
+ 14025 words of font info for 39 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 56i,8n,56p,676b,645s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/cm
--super/cm-super-t2a.enc}</usr/local/texlive/2012/texmf-dist/fonts/type1/public/
-cm-super/sfbx1200.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/cm
--super/sfbx1728.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/cm-s
-uper/sfrm1200.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/cm-sup
-er/sfrm1440.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/cm-super
-/sfti1200.pfb>
-Output written on draft.pdf (14 pages, 179622 bytes).
+ 56i,8n,56p,671b,643s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc
+}</usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+</usr/local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></
+usr/local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></us
+r/local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/
+local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/lo
+cal/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/loca
+l/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
+Output written on draft.pdf (14 pages, 206011 bytes).
 PDF statistics:
- 76 PDF objects out of 1000 (max. 8388607)
- 52 compressed objects within 1 object stream
+ 91 PDF objects out of 1000 (max. 8388607)
+ 58 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 23 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 58 words of extra memory for PDF output out of 10000 (max. 10000000)
 
