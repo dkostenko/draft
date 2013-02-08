@@ -93,33 +93,25 @@ Nowadays it is possible to notice high grow of vehicles in all Russian cities.
 According to DPS data annual growth of cars number is 110 - 120 thousand.
 As a result the significance of traffic conjunction problem increases.
 It causes higher fuel usage 
-%Как следствие увеличивается расход топлива, уровень загрязнения окружающей среды и время пути каждого автомобилиста.
 One of the decisions of the problem is installation of Intelligent Transportation System (ITS).
 ITS ranges from simple traffic light control systems to systems which register velocity of vehicles flow, control traffic flow and recognition of the violations.
-
 Such systems can perform the following tasks:
+\begin{enumerate}
+  \item ensuring maximum traffic capacity;
+  \item reducing road accidents and monitoring human factor;
+  \item collecting information about traffic jams from the vehicle flow and informing its participants;
+  \item environment protection as a result of real-time monitoring of road situation and well timed decisions making.
+\end{enumerate}
 
-1) ensuring maximum traffic capacity;
-
-2) reducing road accidents and monitoring human factor;
-
-3) collecting information about traffic jams from the vehicle flow and informing its participants;
-
-4) environment protection as a result of real-time monitoring of road situation and well timed decisions making.
 
 ITS can contain various sensors from heat sensors to super-sound ones.
 Manual processing of a significant amount of data which is received from the sensors is not applicable in the real-life situations.
 As a consequence, a vital necessity of automation of the process and decision making, based the information gathered during this process, arises.
-
 Automatic vehicle detection in this video monitoring is a complex objective of computer vision.
-
 On of the tasks of such a system is to count vehicles on the highway.
-
 In its turn, it is divided into subtasks of computer vision, such as foreground retrieving (vehicles) and tracking in the next frames.
-
 This paper offers an overview of an approach which is related to automatic tracking of moving vehicles.
 The only source of data used by this approach is a camera video recording.
-
 The first chapter of the present graduation paper offers an overview of existing solution in the field of video monitoring.
 Problem statement and requirements to the algorithm under development are covered in the second chapter.
 The third chapter deals with description of methods and algorithms.
@@ -188,16 +180,21 @@ And finally, the brief exploration of expected results will be introduced.
 In this section a short review of existing highway video surveillance solutions is presented.
 There is only one full ITS architecture, developed by the transportation department of the US. It focuses on creating a unified information environment, that connects automobiles, road equipment, dispatch centres,  and data centres around the country. This system has been patented by the US government.
 
-There are several analogues around the world that are based on the US system. In 2012 a russian ITS was rolled out in Moscow. All of these systems are commercial and there are no ways of analysing there methods.
+There are several analogues around the world that are based on the US system. In 2012 a Russian ITS was rolled out in Moscow. All of these systems are commercial and there are no ways of analysing there methods.
 However, there are also several open-source projects of smaller scale.
 As has been mentioned before, one of the main tasks of such systems is counting vehicles on the highway.
 
 Most of the times the vehicle counting algorithm consists of the following steps:
 
-1) create the background model;
-2) subrtact this model from the current image and obtain all moving objects of the foreground (vehicles);
-3) count the amount of vehicles that has crossed the line of interest;
-4) update the model of the background.
+
+\begin{enumerate}
+  \item create the background model;
+  \item subtract this model from the current image and obtain all moving objects of the foreground (vehicles);
+  \item count the amount of vehicles that has crossed the line of interest;
+  \item update the model of the background.
+\end{enumerate}
+
+
 
 Examples of such an approach: ****\
 
@@ -268,20 +265,15 @@ In this chapter we will state the set of requirements for the algorithm.
 As a formality we will state several definitions first.
 As any video is a sequence of frames, every moment in time we have one frame called the current frame.
 If the current frame is defined as i, the previous frame will be defined as (i-1).
-
 We will consider all the moving objects such as vehicles, trees, humans as the foreground.
 Whether the object is considered as a moving one depends on the camera properties and the environment.
 So we define moving objects as the ones that shift their position in the current frame, relatively to previous frame.
-
 When the camera moves, or the object in its focus, it leads to the image changes.
 The description of the movements which can be seen is called the optical flow.
-
 There are several methods for calculating this flow.
 Lucas and Kanade developed one of them, using differential approach.
 It will be described later in this paper.
-
 Now let us move to the problem statement.
-
 One of the most important problems of video surveillance is identifying the object of interest and following its trajectory through the sequence of the following frames.
 This problem can be partitioned into several sub-problems.
 In the beginning it is necessary to find the objects of interest, which can also be called the foreground objects.
@@ -355,29 +347,25 @@ To calculate the optical flow we need to make several assumptions:
 %При получении нового кадра, сперва необходимо избавиться от шумов.
 %Для этого сгладим изображение фильтром Гаусса. %ссылка на гауса
 %Так как в дальнейшем мы не будем использовать информацию о цвете объектов, то для уменьшения количества избыточной информации переведем изображение из цветовой модели RGB в градации серого. %сказать каким алгоритмом
+%Так же, для увеличения скорости обработки изображения нужно уменьшить его размер.
+%Но это возможно сделать только в том случвае, если характеристики камеры позволяют это сделать. 
+%Например, если камера снимает с разрешением большим чем 640x480, то можно его уменьшить до 640×480, что увеличит скорость обработки каждого кадра.
+%После всех операций предобработки кадров выделим объекты переднего плана.
 
 
 
 In the following chapter an approach to the task of vehicles on motor ways detection and counting will be revealed.
 
 As a video is a frame sequence, at every moment only one frame is available.
-
 In the beginning, it is necessary to eliminate a noise of each frame.
 Gauss filter must be applied in order to perform this.
-
 The information about object color seems to be not in use in further.
 Therefore it will be appropriate to transform the image from RGB color space to grayscale.
-Also, for the sake of increasing the processing performance it is nesassary to reduce the size of the image.
+Also, for the sake of increasing the processing performance it is necessary to reduce the size of the image.
 But it is possible only if the camera allows to do so.
-For instance, if the camera shoots with a resolution of more than 640 by 480 pixels, every frame of the videostream can be reduced to this resolution to increase the processing performance of every frame.
-
+For instance, if the camera shoots with a resolution of more than 640 by 480 pixels, every frame of the video stream can be reduced to this resolution to increase the processing performance of every frame.
 After all of the images pre-processing procedures, the foreground objects are detected.
 
-%Так же, для увеличения скорости обработки изображения нужно уменьшить его размер.
-%Но это возможно сделать только в том случвае, если характеристики камеры позволяют это сделать. 
-%Например, если камера снимает с разрешением большим чем 640x480, то можно его уменьшить до 640×480, что увеличит скорость обработки каждого кадра.
-
-%После всех операций предобработки кадров выделим объекты переднего плана.
 
 
 
@@ -432,16 +420,15 @@ After all of the images pre-processing procedures, the foreground objects are de
 The primary goal of the method, described in this section, is retrieving the foreground objects location.
 The traditional algorithms of retrieving the foreground objects location are based on pixel-by-pixel frame difference method.
 But this method also has several disadvantages.
+This method's application might lead to the enormous amount of isolated areas (Fig. \ref{ris:pixel_by_pixel}).
 
 \begin{figure}[h]
   \center{\includegraphics[width=10cm]{1.jpg}}
   \vspace{-5ex}
   \caption{Pixel-by-pixel frame difference method.}
-  \label{fig:fig1}
+  \label{fig:pixel_by_pixel}
 \end{figure}
 
-
-This method's application might lead to the enormous amount of isolated areas.
 For this reason, this method must be modified to avoid this disadvantage and to make these areas connected with each other.
 At first, each frame has to be divided into blocks which do not overlap.
 The optimal size of a block is found empirically and depends on characteristics of the camera and the environment.
@@ -480,28 +467,24 @@ N is found empirically and depends on characteristics of the camera and the envi
 
 
 \begin{figure}[h]
-	\begin{minipage}[h]{0.2\linewidth}
-		\center{\includegraphics[width=0.2\linewidth]{frame1} \\ a)}
+	\begin{minipage}[h]{0.19\linewidth}
+		\center{\includegraphics[width=1\linewidth]{frame1} \\ a)}
 	\end{minipage}
 	\hfill
-
-	\begin{minipage}[h]{0.2\linewidth}
-		\center{\includegraphics[width=0.2\linewidth]{frame2} \\ b)}
+	\begin{minipage}[h]{0.19\linewidth}
+		\center{\includegraphics[width=1\linewidth]{frame2} \\ b)}
 	\end{minipage}
 	\hfill
-
-	\begin{minipage}[h]{0.2\linewidth}
-		\center{\includegraphics[width=0.2\linewidth]{frame3} \\ c)}
+	\begin{minipage}[h]{0.19\linewidth}
+		\center{\includegraphics[width=1\linewidth]{frame3} \\ c)}
 	\end{minipage}
 	\hfill
-
-	\begin{minipage}[h]{0.2\linewidth}
-		\center{\includegraphics[width=0.2\linewidth]{frame4} \\ d)}
+	\begin{minipage}[h]{0.19\linewidth}
+		\center{\includegraphics[width=1\linewidth]{frame4} \\ d)}
 	\end{minipage}
 	\hfill
-
-	\begin{minipage}[h]{0.2\linewidth}
-		\center{\includegraphics[width=0.2\linewidth]{frame_sum} \\ e)}
+	\begin{minipage}[h]{0.19\linewidth}
+		\center{\includegraphics[width=1\linewidth]{frame_sum} \\ e)}
 	\end{minipage}
 
 	\caption{Зависимость сигнала от шума для данных.}
@@ -511,11 +494,8 @@ N is found empirically and depends on characteristics of the camera and the envi
 
 
 As the objects that we want to track are moving, calculating the long-term model of  the foreground we get the object regions, which is more connected.
-
-As can be seen from fig.\ref{fig:fig3} the object region can be separated into several regions.
+As can be seen from Fig.\ref{fig:fig3} the object region can be separated into several regions.
 To reduce the amount of these regions we use the dilation operation with pre-defined window.
-
-
 
 
 \begin{figure}[h]
@@ -537,79 +517,63 @@ To reduce the amount of these regions we use the dilation operation with pre-def
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \subsection{Foreground segmentation}
-
-
 %В данной главе излагается метод сегментации объектов переднего плана.
-After creating the binary map of the foreground objects, it is nessasery to give every object a certain number.
-A straightforward segmentation algorithm is used.
-
 %После того, как мы получили бинарную карту объектов переднего плана, то необходимо пронумеровать их.
 %Будем использовать простейший алгоритм сегментации.
-
-Suppose, we obtained the binary image.
-In our case white pixels stand for the background, and black pixels stand for the potential vehicles.
-The mapping from the original image to the segmentated image is mono-semantic. 
-
 %Итак, пусть у нас имеется бинарное изображение.
 %В нашем случае 0 - это фон, а 1 - потенциальное транспортнгое средство.
 %В данном случае разметка является однозначной при фиксированном виде связности. 
-
-We will call an array of pixels connected if and only if each pixel has at least one neighbouring pixel belonging to this array.
-There are two ways for pixels to be connected:
-1) 4 connected - the neighbours of the pixel are only the following pixels: the one above, the one below, the one to the right and the one to the left of it;
-2) 8 connected - the neighbours of the pixel are the pixels above, below, to the right, to the left, and the diagonal pixels.
-
 %Связным множеством будем называть такое множество пикселей, у каждого пикселя которого есть хотя бы один сосед, принадлежащий данному множеству.
-
 %Существует 2 вида связности:
 %1) 4 связность - соседями для пикселя считаются 4 пикселя: сверху, слева, справа, снизу.
 %2) 8 связность - соседями для пикселя считаются 8 пикселей, т.е. все к нему прилежащие, в том числе и по диагонали.
+%Мы будем использовать 8-ми связность.
+
+After creating the binary map of the foreground objects, it is necessary to give every object a certain number.
+A straightforward segmentation algorithm is used.
+Suppose, we obtained the binary image.
+In our case white pixels stand for the background, and black pixels stand for the potential vehicles.
+The mapping from the original image to the segmented image is mono-semantic. 
+We will call an array of pixels connected if and only if each pixel has at least one neighbouring pixel belonging to this array.
+There are two ways for pixels to be connected:
+
+\begin{enumerate}
+  \item 4 connected (Fig. \ref{ris:connections} (a)) - the neighbours of the pixel are only the following pixels: the one above, the one below, the one to the right and the one to the left of it;
+  \item 8 connected (Fig. \ref{ris:connections} (b)) - the neighbours of the pixel are the pixels above, below, to the right, to the left, and the diagonal pixels.
+\end{enumerate}
+
 
 
 \begin{figure}[h]
 \begin{minipage}[h]{0.49\linewidth}
-\center{\includegraphics[width=0.5\linewidth]{four-svyaznost.png} \\ a)}
+\center{\includegraphics[width=0.2\linewidth]{four-svyaznost.png} \\ a)}
 \end{minipage}
 \hfill
 \begin{minipage}[h]{0.49\linewidth}
-\center{\includegraphics[width=0.5\linewidth]{eight-svyaznost.png} \\ b)}
+\center{\includegraphics[width=0.2\linewidth]{eight-svyaznost.png} \\ b)}
 \end{minipage}
 \caption{(a) 4-connected, (b) 8-connected}
-\label{ris:image1}
+\label{ris:connections}
 \end{figure}
 
 
-%Мы будем использовать 8-ми связность.
-In our approach the 8 connected way is used, because it gives a significant raise in precision.
 
+In our approach the 8 connected way is used, because it gives a significant raise in precision.
 There are generally known two methods of image marking: recursive and iterative.
 The shortcomings of the recursive approach are the following:
-1) a great amount of memory is needed for it;
-2) it is rather slow, compared to the iterative method.
+\begin{enumerate}
+  \item a great amount of memory is needed for it;
+  \item it is rather slow, compared to the iterative method.
+\end{enumerate}
 The iterative method is an alternative to the recursive approach. It can be often met in literature by the name of: "Sequential scanning algorithm".
 Let us present it in detailed steps:
-1) To be specific, we start processing the pixels of the image from the left-top corner, going from the top to the bottom and from the left to the right.
-2) While cycling through the pixels of the image we ignore the background pixels, and mark the current pixel with the color of the top-left neighbouring pixel.
+
+\begin{enumerate}
+  \item To be specific, we start processing the pixels of the image from the left-top corner, going from the top to the bottom and from the left to the right.
+  \item While cycling through the pixels of the image we ignore the background pixels, and mark the current pixel with the color of the top-left neighbouring pixel.
+\end{enumerate}
+
 ==============
 After processing the image, we need to go through the array of pixels again and do the marking procedure with the consideration of areas equality,
 As a result, an image is obtained, where each connected area is marked with its own number.
@@ -622,14 +586,13 @@ As a result, an image is obtained, where each connected area is marked with its 
 Понятно, что при таком порядке обхода у текущего рассматриваемого пикселя верхний и левый сосед уже должны быть размечены.
 
 %После того как мы обошли всю картинку, нам нужно совершить ещё один обход и произвести переразметку с учётом эквивалентности областей.
-
 %В результате мы получим изображение, на котором каждая связная область помечена своим номером.
 
 
 Now we cut out the areas which can not be classified as vehicles.
-To do so, we need to count the amount of pixels in each area. The areas in which the amount of pixels exceeds a certain treshold are eliminated.
-This treshold is found empirically and will depend on the camera characteristics and the environment conditions.
-At the time of writing we can not tell exactly what the treshold is going to be.
+To do so, we need to count the amount of pixels in each area. The areas in which the amount of pixels exceeds a certain threshold are eliminated.
+This threshold is found empirically and will depend on the camera characteristics and the environment conditions.
+At the time of writing we can not tell exactly what the threshold is going to be.
 That is why, for now we will just ignore it and consider all of the connected areas to be the vehicles that we are looking for. 
 %Теперь необходимо отбросить области, которые не могут быть классифицированы, как транспортные средства.
 %Для этого посчитаем количество пикселей у каждой области и отбросим те, у которых количество пикселей не превышает заранее установленный порог.
@@ -646,8 +609,12 @@ That is why, for now we will just ignore it and consider all of the connected ar
 
 \subsection{Vehicle tracking and counting}
 %здесь описание отслеживания существующих такчек и +1 к счетчику
+После того, как мы получили связные области (которые являются транспортными средствами) на текущем кадре, нам необходимо понять, какие из этих объектов новые, а какие уже существовали на прошлом кадре.
 
+Будем считать, что положение связной области определяется, как координаты центра связной области.
+Такой центр вычисляется как среднее значение всех х-координат и y-координат пикселей, принадлежащих каждой области.
 
+Т.е. задача формулируется таким образом: необходимо сопоставить текущие связные области с такими же на предыдущих кадрах или инициализировать новые.
 
 
 
@@ -729,7 +696,7 @@ That is why, for now we will just ignore it and consider all of the connected ar
 
 \newpage
 \section{Conclusion}
-1 page
+
 
 
 
