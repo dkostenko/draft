@@ -4,7 +4,7 @@
 \contentsline {section}{\numberline {3}Problem statement}{6}
 \contentsline {section}{\numberline {4}Algorithm}{7}
 \contentsline {subsection}{\numberline {4.1}Allocation of foreground objects}{7}
-\contentsline {subsection}{\numberline {4.2}Foreground segmentation}{9}
-\contentsline {subsection}{\numberline {4.3}Vehicle tracking and counting}{10}
-\contentsline {section}{\numberline {5}Conclusion}{11}
-\contentsline {section}{\numberline {6}Bibliography}{12}
+\contentsline {subsection}{\numberline {4.2}Selection of connected regions}{9}
+\contentsline {subsection}{\numberline {4.3}Vehicle tracking and counting}{11}
+\contentsline {section}{\numberline {5}Conclusion}{12}
+\contentsline {section}{\numberline {6}Bibliography}{13}
