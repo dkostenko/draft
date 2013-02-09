@@ -8,6 +8,13 @@
 \usepackage{tocloft}
 \usepackage{lastpage}
 \usepackage{graphicx}
+
+\usepackage[font=small,labelfont=bf,labelsep=space]{caption}
+\captionsetup{%
+  figurename=Fig.,
+  tablename=tab.
+}
+
 \graphicspath{{images/}}
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning}
@@ -27,8 +34,10 @@
 \textbf{
 National Research University Higher School of Economics\\
 }
-Faculty of Business Informatics\\
-School of Software Engineering\\
+Faculty of Business Informatics
+
+School of Software Engineering
+
 Software Management Department
 
 \vfill
@@ -62,6 +71,8 @@ Moscow\\ \number\year
 %Он основан на дифференциальном методе вычисления оптического потока, предложенном Лукасом и Канаде.
 %Отличие данного метода от других состоит в том, что нет необходимости подготавливать модель фона.
 %Так же описываются достоинства и недостатки данного подхода.
+
+\cite{lucaskanade}
 }
 
 
@@ -284,7 +295,7 @@ So we define moving objects as the ones that shift their position in the current
 When the camera moves, or the object in its focus, it leads to the image changes.
 The description of the movements which can be seen is called the optical flow.
 There are several methods for calculating this flow.
-Lucas and Kanade developed one of them, using differential approach.
+Lucas and Kanade developed one of them, using differential approach \cite{lucaskanade}.
 It will be described later in this paper.
 Now let us move to the problem statement.
 One of the most important problems of video surveillance is identifying the object of interest and following its trajectory through the sequence of the following frames.
@@ -441,7 +452,7 @@ This method's application might lead to the enormous amount of isolated areas (F
 \begin{figure}[h]
   \center{\includegraphics[width=10cm]{1.jpg}}
   \vspace{-5ex}
-  \caption{Pixel-by-pixel frame difference method.}
+  \caption{\textit{Pixel-by-pixel frame difference method.}}
   \label{fig:pixel_by_pixel}
 \end{figure}
 
@@ -471,12 +482,12 @@ These operations are the following: erosion and dilation.
 
 It is necessary to consider that the method of subtracting the previous frame from the current frame gives good response near the moving object border. 
 However, inside the objects borders the response is NOT SO GOOD.
-If the vehicle is relatively large, the probability of its recognition as an object of the foreground is LITTLE.
+If the vehicle is relatively large, the probability of its recognition as an object of the foreground is low.
 
 To get rid of this effect let us consider two definitions: sort-term model of the foreground and long-term model of the foreground.
 
 The short-term model is the model which we get, after applying the steps stated above.
-The long-term model is the pixel-by-pixel sum of N previous short-term foreground models, where N is a positive integer and more than 1.  
+The long-term model is the pixel-by-pixel sum of N previous short-term foreground models, where N is a positive integer and more than 1 (Fig.\ref{fig:frames_and_sum}).
 N is found empirically and depends on characteristics of the camera and the environment.
 
 
@@ -503,8 +514,8 @@ N is found empirically and depends on characteristics of the camera and the envi
 		\center{\includegraphics[width=1\linewidth]{frame_sum} \\ e)}
 	\end{minipage}
 
-	\caption{========}
-	\label{ris:image1}
+	\caption{\textit{(a) - first frame; (b) - secind frame; (c) - third frame; (d) - fourth frame; (e) - sum of all frames.}}
+	\label{fig:frames_and_sum}
 \end{figure}
 
 
@@ -569,7 +580,7 @@ There are two ways for pixels to be connected:
 \begin{minipage}[h]{0.49\linewidth}
 \center{\includegraphics[width=0.2\linewidth]{eight-svyaznost.png} \\ b)}
 \end{minipage}
-\caption{(a) 4-connected, (b) 8-connected}
+\caption{\textit{(a) 4-connected, (b) 8-connected}}
 \label{ris:connections}
 \end{figure}
 
@@ -584,7 +595,6 @@ The shortcomings of the recursive approach are the following:
 \end{enumerate}
 The iterative method is an alternative to the recursive approach. It can be often met in literature by the name of: "Sequential scanning algorithm".
 Let us present it in detailed steps:
-
 \begin{enumerate}
   \item To be specific, we start processing the pixels of the image from the left-top corner, going from the top to the bottom and from the left to the right.
   \item While cycling through the pixels of the image we ignore the background pixels, and mark the current pixel with the color of the top-left neighbouring pixel.
@@ -606,7 +616,7 @@ Figure \ref{fig:abc_all_cases} shows five possible positions for the ABC mask on
 
 \begin{figure}[h]
   \center{\includegraphics[width=0.3\linewidth]{abc_mask.jpg}}
-  \caption{ABS-mask.}
+  \caption{\textit{ABC-mask.}}
   \label{fig:abc_mask}
 \end{figure}
 
@@ -614,7 +624,7 @@ Figure \ref{fig:abc_all_cases} shows five possible positions for the ABC mask on
 
 \begin{figure}[h]
   \center{\includegraphics[width=0.3\linewidth]{abc_all_cases.jpg}}
-  \caption{5 cases of ABS-mask.}
+  \caption{\textit{5 cases of ABC-mask.}}
   \label{fig:abc_all_cases}
 \end{figure}
 
@@ -624,7 +634,7 @@ Figure \ref{fig:abc_all_cases} shows five possible positions for the ABC mask on
 	\item Position 1, where only the A element is marked — in this case we have found a new object which gets its own unique number.
 	\item Position 2, where only the B element is marked — in this case we mark the current  A pixel with a number from B.
 	\item Position 3, where only the C element is marked — in this case we mark the current  A pixel with a number from C.
-	\item Position 4, here the B and C marks are connected and equivalent  and the A pixel can be marked with the number either from C or B. In some implementations the equivalency graph of such marks is created, with some explanations. We do not consider it necessary. We are going to do the following - in the case, where B is equal to C, we go back and mark all processed pixels marked as C with B. This process will be described in detail later in this paper. 
+	\item Position 4, here the B and C marks are connected and equivalent  and the A pixel can be marked with the number either from C or B. In some implementations the equivalence graph of such marks is created, with some explanations. We do not consider it necessary. We are going to do the following - in the case, where B is equal to C, we go back and mark all processed pixels marked as C with B. This process will be described in detail later in this paper. 
 \end{enumerate}
 
 
@@ -656,7 +666,9 @@ As a result, an image is obtained, where each connected area is marked with its 
 
 
 
-==============
+
+
+===========
 %
 %Понятно, что при таком порядке обхода у текущего рассматриваемого пикселя верхний и левый сосед уже должны быть размечены.
 %
@@ -709,9 +721,9 @@ These coordinates are calculated as the average value of all the X and Y coordin
 Thus, the problem can be stated in the following way: we need to match the set of connected areas that we have on the current frame with the sets of areas we had on the previous frames, and initialize new areas as they appear.
 Earlier we made several key assumptions.
 One of them was that the vehicle in the current frame has only slightly moved in respect to itself in the previous frame.
-So, if we store the positions of the connected areas centers we can find the closest center of an area in the current frame to a center on the previous frame, using the method suggested by Lucas and Kanade [CITATION NEEDED] ==========
+So, if we store the positions of the connected areas centres we can find the closest center of an area in the current frame to a center on the previous frame, using the method suggested by Lucas and Kanade \cite{lucaskanade}.
 The main idea of this method is to find the closest point to the given point by giving every point its weight.
-A more detailed description of this algorithm can be found here: =======
+A more detailed description of this algorithm can be found here: \cite{lucaskanade}.
 
 
 Let us sum up our approach in an overall algorithm scheme:
@@ -720,7 +732,7 @@ Let us sum up our approach in an overall algorithm scheme:
 	\item Process the gray scale image with the Gaussian filter (this is done to eliminate noise);
 	\item Subtract the previous image from the current one;
 	\item Highlight the connected areas which are most likely to be the vehicles;
-	\item Compare the current connected areas with the same areas in the previous frames with the use of Lucas Kanade approach, initializing the new areas as they appear;
+	\item Compare the current connected areas with the same areas in the previous frames with the use of Lucas Kanade approach \cite{lucaskanade}, initializing the new areas as they appear;
 	\item If such an area intersects an area that we are surveilling, add 1 to the counter.
 \end{enumerate}
 
@@ -728,6 +740,66 @@ Let us sum up our approach in an overall algorithm scheme:
 
 
 
+
+
+
+
+
+
+
+
+\newpage
+\section{Conclusion}
+%В данной работе мы предложили еще один подход к подсчету автомобилей на автодороге.
+%Ключевыми моментами являются:
+%1) исключение необходимости постоянное хранить и модифицировать модель фона,
+%2) отслеживание транспортных средств методом Лукаса и Канаде.
+%Помимо положитлеьных сторон у нашего подхода есть свои существунные недостатки.
+%Например, мы предпологаем, что камера является неподвижной.
+%Хотя в реальных условиях камера может быть подвержена движению, от порывов ветра.
+%Или на объектив камеры могут попадать капельки дождя, которые могут быть зафиксированы, как объекты переднего плана.
+%Скорее всего борьбу с некоторыми из них следует вынести за рамки программы и бороться с ними на аппаратном уровне.
+
+
+In this paper we proposed another method for counting the amount of vehicles on a highway.
+The key propositions we made are the following:
+\begin{enumerate}
+	\item the background model does not necessarily need to be stored at all times;
+	\item the Lucas - Kanade method \cite{lucaskanade} suits the task of vehicle counting really well. 
+\end{enumerate}
+
+Apart from numerous positive aspects, our method has its downsides.
+First, we assume that the camera is stable and does not move.
+Although, in real-life situations this will hardly be possible.
+The camera might be moved by the wind for instance.
+Another problem can be the rain.
+Raindrops might be recognized as the objects of the foreground.
+But the solutions of these problems is out of the scope of our research, they should be solved by the hardware, not the software.
+
+
+
+\newpage
+\section{Bibliography}
+\begin{thebibliography}{99}
+\bibitem{lucaskanade} An Iterative Image Registration Technique with an Application to Stereo Vision, Bruce D. Lucas Takeo Kanade, Computer Science Department Carnegie-Mellon University Pittsburgh, Pennsylvania 15213
+
+\bibitem{realtime_vehicle_detection} Real Time Vehicle Detection and Counting Method for Unsupervised Traffic Video on Highways, Mrs. P.M.Daigavane † and Dr. P.R.Bajaj ††, S. D. College of Engineering, M.S., INDIA
+\end{thebibliography}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Appendix}
 
 \begin{figure}[ht]
 \centering
@@ -777,55 +849,6 @@ Let us sum up our approach in an overall algorithm scheme:
 \path [line] (tuning) -- (counting);
 \end{tikzpicture}
 \end{figure}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-\section{Conclusion}
-%В данной работе мы предложили еще один подход к подсчету автомобилей на автодороге.
-%Ключевыми моментами являются:
-%1) исключение необходимости постоянное хранить и модифицировать модель фона,
-%2) отслеживание транспортных средств методом Лукаса и Канаде.
-%Помимо положитлеьных сторон у нашего подхода есть свои существунные недостатки.
-%Например, мы предпологаем, что камера является неподвижной.
-%Хотя в реальных условиях камера может быть подвержена движению, от порывов ветра.
-%Или на объектив камеры могут попадать капельки дождя, которые могут быть зафиксированы, как объекты переднего плана.
-%Скорее всего борьбу с некоторыми из них следует вынести за рамки программы и бороться с ними на аппаратном уровне.
-
-
-In this paper we proposed another method for counting the amount of vehicles on a highway.
-The key propositions we made are the following:
-\begin{enumerate}
-	\item the background model does not necessarily need to be stored at all times;
-	\item the Lucas - Kanade method suits the task of vehicle counting really well. 
-\end{enumerate}
-
-Apart from numerous positive aspects, our method has its downsides.
-First, we assume that the camera is stable and does not move.
-Although, in real-life situations this will hardly be possible.
-The camera might be moved by the wind for instance.
-Another problem can be the rain.
-Raindrops might be recognized as the objects of the foreground.
-But the solutions of these problems is out of the scope of our research, they should be solved by the hardware, not the software.
-
-
-
-\newpage
-\section{Bibliography}
-1) Real Time Vehicle Detection and Counting Method for Unsupervised Traffic Video on Highways
-Mrs. P.M.Daigavane † and Dr. P.R.Bajaj ††,
-S. D. College of Engineering, M.S., INDIA
 
 
 
