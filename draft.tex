@@ -1,6 +1,6 @@
 \documentclass[12pt,a4paper,oneside,titlepage]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[english, russian]{babel}
+\usepackage[english]{babel}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -58,10 +58,10 @@ Moscow\\ \number\year
 
 \section*{Abstract}
 {
-В данной статье описывается подход к обнаружению и подсчету транспортных средств на атодорогах.
-Он основан на дифференциальном методе вычисления оптического потока, предложенном Лукасом и Канаде.
-Отличие данного метода от других состоит в том, что нет необходимости подготавливать модель фона.
-Так же описываются достоинства и недостатки данного подхода.
+%В данной статье описывается подход к обнаружению и подсчету транспортных средств на атодорогах.
+%Он основан на дифференциальном методе вычисления оптического потока, предложенном Лукасом и Канаде.
+%Отличие данного метода от других состоит в том, что нет необходимости подготавливать модель фона.
+%Так же описываются достоинства и недостатки данного подхода.
 }
 
 
@@ -101,17 +101,17 @@ Moscow\\ \number\year
 %\end{enumerate}
 
 Nowadays a significant growth of the vehicles amount can be observed in all Russian cities.
-According do the russian highway patrol data, this growth is approximately a hundred thousand new cars per year.
+According do the Russian highway patrol data, this growth is approximately a hundred thousand new cars per year.
 Taking into account the fact that almost no new highways appear, we can easily come to a conclusion that the traffic conjunctions problem is a direct result of this annual growth.
 Another problem that arises as a side effect of the jammed highways is an increase in fuel usage.
 A good solution of these problems can be installing an Intelligent Transportation System (ITS).
 These systems range from rather simple implementations which are able to control traffic lights to sophisticated solutions that are capable of registering the vehicle flow velocity and predicting violations.
 These are the tasks, which are usually assigned to these systems:
 \begin{enumerate}
-  \item ensuring maximum traffic capacity;
-  \item reducing the amount of accidents on the highway and monitoring the human factor;
-  \item collecting the information about the traffic jams from the vehicle flow and informing its participants;
-  \item environment protection as an indirect result of real-time monitoring of situation on the roads.
+	\item ensuring maximum traffic capacity;
+	\item reducing the amount of accidents on the highway and monitoring the human factor;
+	\item collecting the information about the traffic jams from the vehicle flow and informing its participants;
+	\item environment protection as an indirect result of real-time monitoring of situation on the roads.
 \end{enumerate}
 
 
@@ -503,7 +503,7 @@ N is found empirically and depends on characteristics of the camera and the envi
 		\center{\includegraphics[width=1\linewidth]{frame_sum} \\ e)}
 	\end{minipage}
 
-	\caption{Зависимость сигнала от шума для данных.}
+	\caption{========}
 	\label{ris:image1}
 \end{figure}
 
@@ -635,16 +635,18 @@ Figure \ref{fig:abc_all_cases} shows five possible positions for the ABC mask on
 %	\item Позиция под номером 3, когда помечен элемент элемент С — в этом случае мы помечаем текущий пиксель A меткой, расположенной в С.
 %	\item Позиция под номером 4, тогда мы говорим о том, что метки (номера объектов) B и C связаны — то есть эквивалентны и пиксель A может быть помечен либо как B либо как C. В некоторых реализация составляют граф эквивалентности таких меток, с последующим его разбором, однако на мой взгляд в это нет необходимости. Мы будем делать так — в том случае, если B не равно C то перенумеруем все уже обработанные пиксели помеченные как С в метку B. Но об этом в самом конце.
 %\end{enumerate}
-
-
-
-
-
-
-
-
-
-
+%Существует 2 известных метода разметки: рекурсивный и итеративный.
+%Недостатком рекурсивного метода является медленная работа и большой расход памяти.
+%Существует и итеративный метод, который в литературе часто встречается под названием "алгоритм последовательного сканирования". Опишем и его:
+%Начинаем обход изображения, для определённости, из левого верхнего угла сверху вниз, справа налево. 
+%При обходе пропускаем пиксели фона. 
+%После того как мы обошли всю картинку, нам нужно совершить ещё один обход и произвести переразметку с учётом эквивалентности областей.
+%В результате мы получим изображение, на котором каждая связная область помечена своим номером.
+%Теперь необходимо отбросить области, которые не могут быть классифицированы, как транспортные средства.
+%Для этого посчитаем количество пикселей у каждой области и отбросим те, у которых количество пикселей не превышает заранее установленный порог.
+%Данный порог будет установлен империческим путем и будет зависить от характеристик камеры и от окружающей среды.
+%На данном этапе написания работы мы не можем сказать, каким значением можно инициализировать данный порог.
+%Поэтому просто проигнорируем его существование и будем считать, что все связные области в пределах области интереса являются транспортными средствами.
 
 
 
@@ -652,15 +654,18 @@ Figure \ref{fig:abc_all_cases} shows five possible positions for the ABC mask on
 After processing the image, we need to go through the array of pixels again and do the marking procedure with the consideration of areas equality,
 As a result, an image is obtained, where each connected area is marked with its own number.
 
-%Существует 2 известных метода разметки: рекурсивный и итеративный.
-%Недостатком рекурсивного метода является медленная работа и большой расход памяти.
-%Существует и итеративный метод, который в литературе часто встречается под названием "алгоритм последовательного сканирования". Опишем и его:
-%Начинаем обход изображения, для определённости, из левого верхнего угла сверху вниз, справа налево. 
-%При обходе пропускаем пиксели фона. 
-Понятно, что при таком порядке обхода у текущего рассматриваемого пикселя верхний и левый сосед уже должны быть размечены.
 
-%После того как мы обошли всю картинку, нам нужно совершить ещё один обход и произвести переразметку с учётом эквивалентности областей.
-%В результате мы получим изображение, на котором каждая связная область помечена своим номером.
+
+==============
+%
+%Понятно, что при таком порядке обхода у текущего рассматриваемого пикселя верхний и левый сосед уже должны быть размечены.
+%
+=============
+
+
+
+
+
 
 
 Now we cut out the areas which can not be classified as vehicles.
@@ -668,11 +673,7 @@ To do so, we need to count the amount of pixels in each area. The areas in which
 This threshold is found empirically and will depend on the camera characteristics and the environment conditions.
 At the time of writing we can not tell exactly what the threshold is going to be.
 That is why, for now we will just ignore it and consider all of the connected areas to be the vehicles that we are looking for. 
-%Теперь необходимо отбросить области, которые не могут быть классифицированы, как транспортные средства.
-%Для этого посчитаем количество пикселей у каждой области и отбросим те, у которых количество пикселей не превышает заранее установленный порог.
-%Данный порог будет установлен империческим путем и будет зависить от характеристик камеры и от окружающей среды.
-%На данном этапе написания работы мы не можем сказать, каким значением можно инициализировать данный порог.
-%Поэтому просто проигнорируем его существование и будем считать, что все связные области в пределах области интереса являются транспортными средствами.
+
 
 
 
@@ -683,53 +684,50 @@ That is why, for now we will just ignore it and consider all of the connected ar
 
 \subsection{Vehicle tracking and counting}
 %здесь описание отслеживания существующих такчек и +1 к счетчику
-After obtaining the set of connected areas in the current frame (which are vehicles that we are looking for), we need to determine which of these objects are new, and which of them has already existed in the previous frames.
-
-We will consider the position of the connected area as the coordinates of its center.
-These coordinates are calculated as the average value of all the X and Y coordinates of the pixels, that this area contains.
-
-Thus, the problem can be stated in the following way: we need to match the set of connected areas that we have on the current frame with the sets of areas we had on the previous frames, and initialize new areas as they appear.
-
 %После того, как мы получили связные области (которые являются транспортными средствами) на текущем кадре, нам необходимо понять, какие из этих объектов новые, а какие уже существовали на прошлом кадре.
-
 %Будем считать, что положение связной области определяется, как координаты центра связной области.
 %Такой центр вычисляется как среднее значение всех х-координат и y-координат пикселей, принадлежащих области.
-
 %Т.е. задача формулируется таким образом: необходимо сопоставить текущие связные области с такими же на предыдущих кадрах или инициализировать новые.
-
-Earlier we made several key assumptions.
-One of them was that the vehicle in the current frame has only slightly moved in respect to itself in the previous frame.
-So, if we store the positions of the connected areas centers we can find the closest center of an area in the current frame to a center on the previous frame, using the method suggested by Lucas and Kanade [CITATION NEEDED] ==========
-
-The main idea of this method is to find the closest point to the given point by giving every point its weight.
-A more detailed description of this algorithm can be found here: =======
-
 %Ранее мы сделали несколько ключевых предположений.
 %Одним из них было продположение о том, что атвомобиль на текущем кадре сдинулся на небольшое расстояние отоносительно себя на предыдущем кадре.
 %Таким образом, храня положения цетров связных областей мы можем найти ближаший центр данной области на текущем кадре к этой же области на предыдущем кадре, используя подход, предложенный Лукасом и Канаде.
-
 %Основное идеей данного метода является нахождение ближайшей точки к данной путем навешивания весов на точки.
-%Подробнее алгоритм описан здесь: ==============
-
-Let us sum up our approach in an overall algorithm scheme:
-
-1) Translate the image from RGB to gray scale;
-2) Process the gray scale image with the Gaussian filter (this is done to eliminate noise);
-3) Subtract the previous image from the current one;
-4) Highlight the connected areas which are most likely to be the vehicles;
-5) Compare the current connected areas with the same areas in the previous frames with the use of Lucas Kanade approach, initializing the new areas as they appear;
-6) If such an area intersects an area that we are surveilling, add 1 to the counter.
-
-
-
+%Подробнее алгоритм описан здесь: ==============\\
 %Приведем содержание нашего подхода и общую схему алгоритма.
-
 %1) Перевести изображение в серое
 %2) обработать изображение фильтром гауса (против шумов)
 %3) вычесть из текущего изображения предыдущее
 %5) выделить связные области, которые и будут предположительно транспортными средствами 
 %6) сопоставить текущия связные области с такими же на предыыдущих кадрах методом Лукаса и Канаде или инициализировать новые
 %7) если такая связна область пересекает линию интереса, то прибавляем 1 к счетчику
+
+
+
+After obtaining the set of connected areas in the current frame (which are vehicles that we are looking for), we need to determine which of these objects are new, and which of them has already existed in the previous frames.
+We will consider the position of the connected area as the coordinates of its center.
+These coordinates are calculated as the average value of all the X and Y coordinates of the pixels, that this area contains.
+Thus, the problem can be stated in the following way: we need to match the set of connected areas that we have on the current frame with the sets of areas we had on the previous frames, and initialize new areas as they appear.
+Earlier we made several key assumptions.
+One of them was that the vehicle in the current frame has only slightly moved in respect to itself in the previous frame.
+So, if we store the positions of the connected areas centers we can find the closest center of an area in the current frame to a center on the previous frame, using the method suggested by Lucas and Kanade [CITATION NEEDED] ==========
+The main idea of this method is to find the closest point to the given point by giving every point its weight.
+A more detailed description of this algorithm can be found here: =======
+
+
+Let us sum up our approach in an overall algorithm scheme:
+\begin{enumerate}
+	\item Translate the image from RGB to gray scale;
+	\item Process the gray scale image with the Gaussian filter (this is done to eliminate noise);
+	\item Subtract the previous image from the current one;
+	\item Highlight the connected areas which are most likely to be the vehicles;
+	\item Compare the current connected areas with the same areas in the previous frames with the use of Lucas Kanade approach, initializing the new areas as they appear;
+	\item If such an area intersects an area that we are surveilling, add 1 to the counter.
+\end{enumerate}
+
+
+
+
+
 
 \begin{figure}[ht]
 \centering
@@ -795,11 +793,23 @@ Let us sum up our approach in an overall algorithm scheme:
 
 \newpage
 \section{Conclusion}
+%В данной работе мы предложили еще один подход к подсчету автомобилей на автодороге.
+%Ключевыми моментами являются:
+%1) исключение необходимости постоянное хранить и модифицировать модель фона,
+%2) отслеживание транспортных средств методом Лукаса и Канаде.
+%Помимо положитлеьных сторон у нашего подхода есть свои существунные недостатки.
+%Например, мы предпологаем, что камера является неподвижной.
+%Хотя в реальных условиях камера может быть подвержена движению, от порывов ветра.
+%Или на объектив камеры могут попадать капельки дождя, которые могут быть зафиксированы, как объекты переднего плана.
+%Скорее всего борьбу с некоторыми из них следует вынести за рамки программы и бороться с ними на аппаратном уровне.
+
 
 In this paper we proposed another method for counting the amount of vehicles on a highway.
 The key propositions we made are the following:
-1) the background model does not necessarily need to be stored at all times;
-2) the Lucas - Kanade method suits the task of vehicle counting really well. 
+\begin{enumerate}
+	\item the background model does not necessarily need to be stored at all times;
+	\item the Lucas - Kanade method suits the task of vehicle counting really well. 
+\end{enumerate}
 
 Apart from numerous positive aspects, our method has its downsides.
 First, we assume that the camera is stable and does not move.
@@ -809,16 +819,7 @@ Another problem can be the rain.
 Raindrops might be recognized as the objects of the foreground.
 But the solutions of these problems is out of the scope of our research, they should be solved by the hardware, not the software.
 
-%В данной работе мы предложили еще один подход к подсчету автомобилей на автодороге.
-%Ключевыми моментами являются:
-%1) исключение необходимости постоянное хранить и модифицировать модель фона,
-%2) отслеживание транспортных средств методом Лукаса и Канаде.
 
-%Помимо положитлеьных сторон у нашего подхода есть свои существунные недостатки.
-%Например, мы предпологаем, что камера является неподвижной.
-%Хотя в реальных условиях камера может быть подвержена движению, от порывов ветра.
-%Или на объектив камеры могут попадать капельки дождя, которые могут быть зафиксированы, как объекты переднего плана.
-%Скорее всего борьбу с некоторыми из них следует вынести за рамки программы и бороться с ними на аппаратном уровне.
 
 \newpage
 \section{Bibliography}
