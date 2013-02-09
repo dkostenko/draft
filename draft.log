@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  9 FEB 2013 15:20
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  9 FEB 2013 22:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1124,27 +1124,21 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 \openout4 = `draft.toc'.
 
 
-[3]
-Overfull \hbox (23.13264pt too wide) in paragraph at lines 103--104
-[]\T2A/cmr/m/n/12 collecting information about traffic jams from the vehicle fl
-ow and informing its participants; 
- []
-
-[4] [5] [6]
+[3] [4] [5] [6]
 
 LaTeX Warning: Reference `ris:pixel_by_pixel' on page 7 undefined on input line
- 420.
+ 439.
 
 <images/1.jpg, id=28, 562.1pt x 421.575pt>
 File: images/1.jpg Graphic file (type jpg)
  <use images/1.jpg>
-Package pdftex.def Info: images/1.jpg used on input line 423.
+Package pdftex.def Info: images/1.jpg used on input line 442.
 (pdftex.def)             Requested size: 284.52756pt x 213.39221pt.
 
 <images/2.jpg, id=29, 1284.8pt x 703.62875pt>
 File: images/2.jpg Graphic file (type jpg)
  <use images/2.jpg>
-Package pdftex.def Info: images/2.jpg used on input line 436.
+Package pdftex.def Info: images/2.jpg used on input line 455.
 (pdftex.def)             Requested size: 284.52756pt x 155.81877pt.
 
 
@@ -1154,35 +1148,35 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: images/frame1.png Graphic file (type png)
 
 <use images/frame1.png>
-Package pdftex.def Info: images/frame1.png used on input line 468.
+Package pdftex.def Info: images/frame1.png used on input line 487.
 (pdftex.def)             Requested size: 89.20053pt x 67.89993pt.
  <images/frame2.png, id=36, 64.24pt x 54.2025pt>
 File: images/frame2.png Graphic file (type png)
 
 <use images/frame2.png>
-Package pdftex.def Info: images/frame2.png used on input line 472.
+Package pdftex.def Info: images/frame2.png used on input line 491.
 (pdftex.def)             Requested size: 89.20053pt x 75.26929pt.
  <images/frame3.png, id=37, 77.28876pt x 58.2175pt>
 File: images/frame3.png Graphic file (type png)
 
 <use images/frame3.png>
-Package pdftex.def Info: images/frame3.png used on input line 476.
+Package pdftex.def Info: images/frame3.png used on input line 495.
 (pdftex.def)             Requested size: 89.20053pt x 67.19565pt.
  <images/frame4.png, id=38, 76.285pt x 65.24374pt>
 File: images/frame4.png Graphic file (type png)
 
 <use images/frame4.png>
-Package pdftex.def Info: images/frame4.png used on input line 480.
+Package pdftex.def Info: images/frame4.png used on input line 499.
 (pdftex.def)             Requested size: 89.20053pt x 76.29305pt.
  <images/frame_sum.png, id=39, 90.3375pt x 61.22874pt>
 File: images/frame_sum.png Graphic file (type png)
 
 <use images/frame_sum.png>
-Package pdftex.def Info: images/frame_sum.png used on input line 484.
+Package pdftex.def Info: images/frame_sum.png used on input line 503.
 (pdftex.def)             Requested size: 89.20053pt x 60.45872pt.
 File: images/frame4.png Graphic file (type png)
  <use images/frame4.png>
-Package pdftex.def Info: images/frame4.png used on input line 499.
+Package pdftex.def Info: images/frame4.png used on input line 518.
 (pdftex.def)             Requested size: 93.89265pt x 80.30606pt.
 
 
@@ -1194,43 +1188,38 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: images/four-svyaznost.png Graphic file (type png)
 
 <use images/four-svyaznost.png>
-Package pdftex.def Info: images/four-svyaznost.png used on input line 547.
+Package pdftex.def Info: images/four-svyaznost.png used on input line 566.
 (pdftex.def)             Requested size: 46.0079pt x 33.6651pt.
 
 <images/eight-svyaznost.png, id=45, 82.3075pt x 60.225pt>
 File: images/eight-svyaznost.png Graphic file (type png)
 
 <use images/eight-svyaznost.png>
-Package pdftex.def Info: images/eight-svyaznost.png used on input line 551.
+Package pdftex.def Info: images/eight-svyaznost.png used on input line 570.
 (pdftex.def)             Requested size: 46.0079pt x 33.6651pt.
  [9 <./images/four-svyaznost.png> <./images/eight-svyaznost.png>] <images/abc_m
 ask.jpg, id=49, 348.30125pt x 173.64874pt>
 File: images/abc_mask.jpg Graphic file (type jpg)
 
 <use images/abc_mask.jpg>
-Package pdftex.def Info: images/abc_mask.jpg used on input line 584.
+Package pdftex.def Info: images/abc_mask.jpg used on input line 608.
 (pdftex.def)             Requested size: 140.84258pt x 70.21872pt.
 
 <images/abc_all_cases.jpg, id=50, 502.87875pt x 304.13625pt>
 File: images/abc_all_cases.jpg Graphic file (type jpg)
 
 <use images/abc_all_cases.jpg>
-Package pdftex.def Info: images/abc_all_cases.jpg used on input line 592.
+Package pdftex.def Info: images/abc_all_cases.jpg used on input line 616.
 (pdftex.def)             Requested size: 140.84258pt x 85.17612pt.
- [10 <./images/abc_mask.jpg> <./images/abc_all_cases.jpg>]
-Overfull \hbox (21.14284pt too wide) in paragraph at lines 667--669
-\T2A/cmr/m/n/12 тем на-ве-ши-ва-ния ве-сов на точ-ки. По-дроб-нее ал-го-ритм оп
-и-сан здесь: ============== 
- []
+ [10 <./images/abc_mask.jpg> <./images/abc_all_cases.jpg>] [11] [12]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 826.
 
-[11] [12]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 762.
 
- (/usr/local/texlive/2012/texmf-dist/tex/latex/base/omscmr.fd
+(/usr/local/texlive/2012/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 762.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 826.
 
 
 AED: lastpage setting LastPage
@@ -1246,7 +1235,7 @@ Here is how much of TeX's memory you used:
  17712 multiletter control sequences out of 15000+200000
  14025 words of font info for 39 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 56i,8n,56p,847b,643s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,8n,56p,839b,643s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc
 }</usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
 </usr/local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></
@@ -1255,7 +1244,7 @@ r/local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/
 local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/lo
 cal/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/loca
 l/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on draft.pdf (14 pages, 264858 bytes).
+Output written on draft.pdf (14 pages, 262783 bytes).
 PDF statistics:
  93 PDF objects out of 1000 (max. 8388607)
  58 compressed objects within 1 object stream

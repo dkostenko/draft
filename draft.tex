@@ -68,10 +68,6 @@ Moscow\\ \number\year
 
 
 
-
-
-
-
 {
 \newpage
 \centering
@@ -90,23 +86,37 @@ Moscow\\ \number\year
 
 \newpage
 \section{Introduction}
-Nowadays it is possible to notice high grow of vehicles in all Russian cities.
-According to DPS data annual growth of cars number is 110 - 120 thousand.
-As a result the significance of traffic conjunction problem increases.
-It causes higher fuel usage 
-One of the decisions of the problem is installation of Intelligent Transportation System (ITS).
-ITS ranges from simple traffic light control systems to systems which register velocity of vehicles flow, control traffic flow and recognition of the violations.
-Such systems can perform the following tasks:
+%Nowadays it is possible to notice high grow of vehicles in all Russian cities.
+%According to DPS data annual growth of cars number is 110 - 120 thousand.
+%As a result the significance of traffic conjunction problem increases.
+%It causes higher fuel usage 
+%One of the decisions of the problem is installation of Intelligent Transportation System (ITS).
+%ITS ranges from simple traffic light control systems to systems which register velocity of vehicles flow, control traffic flow and recognition of the violations.
+%Such systems can perform the following tasks:
+%\begin{enumerate}
+%  \item ensuring maximum traffic capacity;
+%  \item reducing road accidents and monitoring human factor;
+%  \item collecting information about traffic jams from the vehicle flow and informing its participants;
+%  \item environment protection as a result of real-time monitoring of road situation and well timed decisions making.
+%\end{enumerate}
+
+Nowadays a significant growth of the vehicles amount can be observed in all Russian cities.
+According do the russian highway patrol data, this growth is approximately a hundred thousand new cars per year.
+Taking into account the fact that almost no new highways appear, we can easily come to a conclusion that the traffic conjunctions problem is a direct result of this annual growth.
+Another problem that arises as a side effect of the jammed highways is an increase in fuel usage.
+A good solution of these problems can be installing an Intelligent Transportation System (ITS).
+These systems range from rather simple implementations which are able to control traffic lights to sophisticated solutions that are capable of registering the vehicle flow velocity and predicting violations.
+These are the tasks, which are usually assigned to these systems:
 \begin{enumerate}
   \item ensuring maximum traffic capacity;
-  \item reducing road accidents and monitoring human factor;
-  \item collecting information about traffic jams from the vehicle flow and informing its participants;
-  \item environment protection as a result of real-time monitoring of road situation and well timed decisions making.
+  \item reducing the amount of accidents on the highway and monitoring the human factor;
+  \item collecting the information about the traffic jams from the vehicle flow and informing its participants;
+  \item environment protection as an indirect result of real-time monitoring of situation on the roads.
 \end{enumerate}
 
 
-ITS can contain various sensors from heat sensors to super-sound ones.
-Manual processing of a significant amount of data which is received from the sensors is not applicable in the real-life situations.
+ITS can contain various sensors from the ones that are capable of detecting heat to the ultrasonic ones.
+Manual processing of a significant amount of data which is received from these sensors is not applicable in the real-life situations.
 As a consequence, a vital necessity of automation of the process and decision making, based the information gathered during this process, arises.
 Automatic vehicle detection in this video monitoring is a complex objective of computer vision.
 On of the tasks of such a system is to count vehicles on the highway.
@@ -117,6 +127,8 @@ The first chapter of the present graduation paper offers an overview of existing
 Problem statement and requirements to the algorithm under development are covered in the second chapter.
 The third chapter deals with description of methods and algorithms.
 And finally, the brief exploration of expected results will be introduced.
+
+
 %В наше время наблюдается высокие рост количества транспортных средств во всех городах России.
 %По данным ГИБДД только в Москве ежегодный прирост автомобилей составляет 110 - 120 тысяч.
 %В результате проблема заторов автотранспортных дорог становится более острой.
@@ -293,21 +305,28 @@ To calculate the optical flow we need to make several assumptions:
   \item The location of the object of interest will not change a lot relatively to the previous frame. This is due to the fact that in real life objects do not move with the speed of light.
 \end{enumerate}
 
+ 
 
 
 
+Let us state the problem: counting the amount of vehicles which appear in a certain area of interest.
+
+We can also formulate the following algorithm requirements:
+1) working without any specific data about the highway, or the images that are going to be processed;
+2) real-time processing of the data flow;
+3) not requiring a significant amount of computational power. The minimal hardware requirements will be proposed in the specification. At the time of writing this paper these requirements are impossible to describe.
+
+Now let us move to the descripton of the algorithm.
+
+%Сформулируем задачу: посчитать количество автомобилей, пересекающих область интереса.
+
+%Теперь мы можем сформулировать требования к алгоритму:
+%1) Работать без каких-либо предварительных данных об автодороге,
+%2) Обработка потока данных в реальном времени
+%3) Не должен требовать высоких вычислительных мощностей. Минимальные требования к оборудованию будут предложены в техническом задании, на стадии написания данной бумаги их невозможно сформулировать.
 
 
-
-Сформулируем задачу: посчитать количество автомобилей, пересекающих область интереса.
-
-Теперь мы можем сформулировать требования к алгоритму:
-1) Работать без каких-либо предварительных данных об автодороге,
-2) Обработка потока данных в реальном времени
-3) Не должен требовать высоких вычислительных мощностей. Минимальные требования к оборудованию будут предложены в техническом задании, на стадии написания данной бумаги их невозможно сформулировать.
-
-
-Перейдем к изложению алгоритма.
+%Перейдем к изложению алгоритма.
 
 
 
@@ -571,12 +590,17 @@ Let us present it in detailed steps:
   \item While cycling through the pixels of the image we ignore the background pixels, and mark the current pixel with the color of the top-left neighbouring pixel.
 \end{enumerate}
 
-Идея данного алгоритма основана на использовании уголка — ABC-маски, которая показана on Fig. \ref{fig:abc_mask}.
-Проход по изображению данной маской осуществляется слева-направо и сверху-вниз. Считается, что за границей изображения объектов нет, поэтому, если туда попадают B или C — это требует дополнительной проверки при сканировании. На рисунке 4 изображены 5 возможных позиций маски на изображении.
-Рассмотрим их.
+The idea behind this algorithm is to use a special mask, shaped like a corner, called the ABC mask. 
+This mask can be seen in the Fig. \ref{fig:abc_mask}.
+Going through the image with this mask is carried out in a top to bottom and left to right fashion.
+It is assumed that there are no objects behind the image border, so it is possible for a B or a C to end up behind this border.
+This requires an extra verification after the scanning.
+Figure \ref{fig:abc_all_cases} shows five possible positions for the ABC mask on the image.
 
-
-
+%Идея данного алгоритма основана на использовании уголка — ABC-маски, которая показана on Fig. \ref{fig:abc_mask}.
+%Проход по изображению данной маской осуществляется слева-направо и сверху-вниз. 
+%Считается, что за границей изображения объектов нет, поэтому, если туда попадают B или C — это требует дополнительной проверки при сканировании. 
+%На рисунке 4 изображены 5 возможных позиций маски на изображении.
 
 
 
@@ -595,15 +619,22 @@ Let us present it in detailed steps:
 \end{figure}
 
 
-On Fig. \ref{fig:abc_all_cases} we can see 5 cases of ABS-mask:
-
 \begin{enumerate}
-	\item Позиция под номером 0, когда не размечены все три компонента маски — в этом случае мы просто пропускаем пиксель.
-	\item Позиция под номером 1, когда помечен только элемент A — в этом случае мы говорим о создании нового объекта — новый номер.
-	\item Позиция под номером 2, когда помечен элемент элемент B — в этом случае мы помечаем текущий пиксель A меткой, расположенной в B.
-	\item Позиция под номером 3, когда помечен элемент элемент С — в этом случае мы помечаем текущий пиксель A меткой, расположенной в С.
-	\item Позиция под номером 4, тогда мы говорим о том, что метки (номера объектов) B и C связаны — то есть эквивалентны и пиксель A может быть помечен либо как B либо как C. В некоторых реализация составляют граф эквивалентности таких меток, с последующим его разбором, однако на мой взгляд в это нет необходимости. Мы будем делать так — в том случае, если B не равно C то перенумеруем все уже обработанные пиксели помеченные как С в метку B. Но об этом в самом конце.
+	\item Position 0, where all three components of the mask are not marked — in this case we simply skip the pixel.
+	\item Position 1, where only the A element is marked — in this case we have found a new object which gets its own unique number.
+	\item Position 2, where only the B element is marked — in this case we mark the current  A pixel with a number from B.
+	\item Position 3, where only the C element is marked — in this case we mark the current  A pixel with a number from C.
+	\item Position 4, here the B and C marks are connected and equivalent  and the A pixel can be marked with the number either from C or B. In some implementations the equivalency graph of such marks is created, with some explanations. We do not consider it necessary. We are going to do the following - in the case, where B is equal to C, we go back and mark all processed pixels marked as C with B. This process will be described in detail later in this paper. 
 \end{enumerate}
+
+
+%\begin{enumerate}
+%	\item Позиция под номером 0, когда не размечены все три компонента маски — в этом случае мы просто пропускаем пиксель.
+%	\item Позиция под номером 1, когда помечен только элемент A — в этом случае мы говорим о создании нового объекта — новый номер.
+%	\item Позиция под номером 2, когда помечен элемент элемент B — в этом случае мы помечаем текущий пиксель A меткой, расположенной в B.
+%	\item Позиция под номером 3, когда помечен элемент элемент С — в этом случае мы помечаем текущий пиксель A меткой, расположенной в С.
+%	\item Позиция под номером 4, тогда мы говорим о том, что метки (номера объектов) B и C связаны — то есть эквивалентны и пиксель A может быть помечен либо как B либо как C. В некоторых реализация составляют граф эквивалентности таких меток, с последующим его разбором, однако на мой взгляд в это нет необходимости. Мы будем делать так — в том случае, если B не равно C то перенумеруем все уже обработанные пиксели помеченные как С в метку B. Но об этом в самом конце.
+%\end{enumerate}
 
 
 
@@ -652,32 +683,53 @@ That is why, for now we will just ignore it and consider all of the connected ar
 
 \subsection{Vehicle tracking and counting}
 %здесь описание отслеживания существующих такчек и +1 к счетчику
-После того, как мы получили связные области (которые являются транспортными средствами) на текущем кадре, нам необходимо понять, какие из этих объектов новые, а какие уже существовали на прошлом кадре.
+After obtaining the set of connected areas in the current frame (which are vehicles that we are looking for), we need to determine which of these objects are new, and which of them has already existed in the previous frames.
 
-Будем считать, что положение связной области определяется, как координаты центра связной области.
-Такой центр вычисляется как среднее значение всех х-координат и y-координат пикселей, принадлежащих области.
+We will consider the position of the connected area as the coordinates of its center.
+These coordinates are calculated as the average value of all the X and Y coordinates of the pixels, that this area contains.
 
-Т.е. задача формулируется таким образом: необходимо сопоставить текущие связные области с такими же на предыдущих кадрах или инициализировать новые.
+Thus, the problem can be stated in the following way: we need to match the set of connected areas that we have on the current frame with the sets of areas we had on the previous frames, and initialize new areas as they appear.
+
+%После того, как мы получили связные области (которые являются транспортными средствами) на текущем кадре, нам необходимо понять, какие из этих объектов новые, а какие уже существовали на прошлом кадре.
+
+%Будем считать, что положение связной области определяется, как координаты центра связной области.
+%Такой центр вычисляется как среднее значение всех х-координат и y-координат пикселей, принадлежащих области.
+
+%Т.е. задача формулируется таким образом: необходимо сопоставить текущие связные области с такими же на предыдущих кадрах или инициализировать новые.
+
+Earlier we made several key assumptions.
+One of them was that the vehicle in the current frame has only slightly moved in respect to itself in the previous frame.
+So, if we store the positions of the connected areas centers we can find the closest center of an area in the current frame to a center on the previous frame, using the method suggested by Lucas and Kanade [CITATION NEEDED] ==========
+
+The main idea of this method is to find the closest point to the given point by giving every point its weight.
+A more detailed description of this algorithm can be found here: =======
+
+%Ранее мы сделали несколько ключевых предположений.
+%Одним из них было продположение о том, что атвомобиль на текущем кадре сдинулся на небольшое расстояние отоносительно себя на предыдущем кадре.
+%Таким образом, храня положения цетров связных областей мы можем найти ближаший центр данной области на текущем кадре к этой же области на предыдущем кадре, используя подход, предложенный Лукасом и Канаде.
+
+%Основное идеей данного метода является нахождение ближайшей точки к данной путем навешивания весов на точки.
+%Подробнее алгоритм описан здесь: ==============
+
+Let us sum up our approach in an overall algorithm scheme:
+
+1) Translate the image from RGB to gray scale;
+2) Process the gray scale image with the Gaussian filter (this is done to eliminate noise);
+3) Subtract the previous image from the current one;
+4) Highlight the connected areas which are most likely to be the vehicles;
+5) Compare the current connected areas with the same areas in the previous frames with the use of Lucas Kanade approach, initializing the new areas as they appear;
+6) If such an area intersects an area that we are surveilling, add 1 to the counter.
 
 
-Ранее мы сделали несколько ключевых предположений.
-Одним из них было продположение о том, что атвомобиль на текущем кадре сдинулся на небольшое расстояние отоносительно себя на предыдущем кадре.
-Таким образом, храня положения цетров связных областей мы можем найти ближаший центр данной области на текущем кадре к этой же области на предыдущем кадре, используя подход, предложенный Лукасом и Канаде.
 
-Основное идеей данного метода является нахождение ближайшей точки к данной путем навешивания весов на точки.
-Подробнее алгоритм описан здесь: ==============
+%Приведем содержание нашего подхода и общую схему алгоритма.
 
-
-
-Приведем содержание нашего подхода и общую схему алгоритма.
-
-1) Перевести изображение в серое
-2) обработать изображение фильтром гауса (против шумов)
-3) вычесть из текущего изображения предыдущее
-4) наложить друг на друга n предыдущих разностей (для получения транспортного средства) Делать это каждые 5 кадров
-5) выделить связные области, которые и будут предположительно транспортными средствами 
-6) сопоставить текущия связные области с такими же на предыыдущих кадрах методом Лукаса и Канаде или инициализировать новые
-7) если такая связна область пересекает линию интереса, то прибавляем 1 к счетчику
+%1) Перевести изображение в серое
+%2) обработать изображение фильтром гауса (против шумов)
+%3) вычесть из текущего изображения предыдущее
+%5) выделить связные области, которые и будут предположительно транспортными средствами 
+%6) сопоставить текущия связные области с такими же на предыыдущих кадрах методом Лукаса и Канаде или инициализировать новые
+%7) если такая связна область пересекает линию интереса, то прибавляем 1 к счетчику
 
 \begin{figure}[ht]
 \centering
@@ -743,18 +795,30 @@ That is why, for now we will just ignore it and consider all of the connected ar
 
 \newpage
 \section{Conclusion}
-В данной работе мы предложили еще один подход к подсчету автомобилей на автодороге.
-Ключевыми моментами являются:
-1) исключение необходимости постоянное хранить и модифицировать модель фона,
-2) отслеживание транспортных средств методом Лукаса и Канаде.
 
-Помимо положитлеьных сторон у нашего подхода есть свои существунные недостатки.
-Например, мы предпологаем, что камера является неподвижной.
-Хотя в реальных условиях камера может быть подвержена движению, от порывов ветра.
-Или на объектив камеры могут попадать капельки дождя, которые могут быть зафиксированы, как объекты переднего плана.
-Скорее всего борьбу с некоторыми из них следует вынести за рамки программы и бороться с ними на аппаратном уровне.
+In this paper we proposed another method for counting the amount of vehicles on a highway.
+The key propositions we made are the following:
+1) the background model does not necessarily need to be stored at all times;
+2) the Lucas - Kanade method suits the task of vehicle counting really well. 
 
+Apart from numerous positive aspects, our method has its downsides.
+First, we assume that the camera is stable and does not move.
+Although, in real-life situations this will hardly be possible.
+The camera might be moved by the wind for instance.
+Another problem can be the rain.
+Raindrops might be recognized as the objects of the foreground.
+But the solutions of these problems is out of the scope of our research, they should be solved by the hardware, not the software.
 
+%В данной работе мы предложили еще один подход к подсчету автомобилей на автодороге.
+%Ключевыми моментами являются:
+%1) исключение необходимости постоянное хранить и модифицировать модель фона,
+%2) отслеживание транспортных средств методом Лукаса и Канаде.
+
+%Помимо положитлеьных сторон у нашего подхода есть свои существунные недостатки.
+%Например, мы предпологаем, что камера является неподвижной.
+%Хотя в реальных условиях камера может быть подвержена движению, от порывов ветра.
+%Или на объектив камеры могут попадать капельки дождя, которые могут быть зафиксированы, как объекты переднего плана.
+%Скорее всего борьбу с некоторыми из них следует вынести за рамки программы и бороться с ними на аппаратном уровне.
 
 \newpage
 \section{Bibliography}
