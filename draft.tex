@@ -72,7 +72,12 @@ Moscow\\ \number\year
 %Отличие данного метода от других состоит в том, что нет необходимости подготавливать модель фона.
 %Так же описываются достоинства и недостатки данного подхода.
 
-\cite{lucaskanade}
+In this paper a method for detecting and counting vehicles on a highway is described. 
+It is based on a differential method of counting the optical flow suggested by Lucas and Canade \cite{lucaskanade}. 
+This method is different from other methods in a way that it does not require a pre-made model of the background. 
+Advantages and disadvantages of such an approach are also described.
+
+
 }
 
 
@@ -663,23 +668,6 @@ Figure \ref{fig:abc_all_cases} shows five possible positions for the ABC mask on
 
 After processing the image, we need to go through the array of pixels again and do the marking procedure with the consideration of areas equality,
 As a result, an image is obtained, where each connected area is marked with its own number.
-
-
-
-
-
-===========
-%
-%Понятно, что при таком порядке обхода у текущего рассматриваемого пикселя верхний и левый сосед уже должны быть размечены.
-%
-=============
-
-
-
-
-
-
-
 Now we cut out the areas which can not be classified as vehicles.
 To do so, we need to count the amount of pixels in each area. The areas in which the amount of pixels exceeds a certain threshold are eliminated.
 This threshold is found empirically and will depend on the camera characteristics and the environment conditions.
