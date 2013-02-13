@@ -49,13 +49,16 @@ An Application for Dynamic Object Identification Based on Lucas-Kanade Algorithm
 }
 \end{large}
 
+\vfill
+
+\hfill Word count: 2843
 
 \vfill
 
 \begin{tabular}{lr}
 Student: & Kostenko Dmitry \\
 Group: & 472SE \\
-Argument Consultant: & Prof. Ivan. M. Gostev, PhD \\
+Argument Consultant: & Prof. Ivan. M. Gostev, D.Sc. \\
 Style and Language Consultant: & Tatiana A. Stepantsova
 \end{tabular}
 
@@ -225,8 +228,7 @@ Most of the times the vehicle counting algorithm consists of the following steps
 
 
 
-Examples of such an approach: ****\
-
+Examples of such an approach are presented by Mrs. P.M.Daigavane and Dr. P.R.Bajaj \cite{realtime_vehicle_detection} and Dule Shu \cite{vehicle_tracking}.
 Our work uses a different approach. We suggest an alternative method for counting vehicles without the pre-modelled background.
 It is based on the differences sum  of the neighbouring frames of a video sequence and highlighting the connected areas.
 
@@ -278,6 +280,7 @@ It is based on the differences sum  of the neighbouring frames of a video sequen
 %После того, как мы это сделали мы получим бинарную карту движущихся объектов на изображении.
 %Далее необходимо понять, какие из движущихся объектов являются автотранспортными средствами, а какие не являются таковыми. 
 %Так как на изображении могут двигаться не только объекты переднего плана, но и объекты заднего плана (например ветви деревьев), то появляется необходимость борьбы с данным явлением.
+%и назовем ее областью интереса
 %Для этого ограничим на изображении область, в которой мы и будем вести видеонаблюдение. %рисунок
 %Такой областью лучше всего выделить хорошо просматриваемый промежуток автодороги.
 %Затем следить за изменениями координат обектов интереса в последующих кадрах.
@@ -310,7 +313,6 @@ Finding these objects involves separation of the foreground from the background 
 As a result we get a binary map of the moving objects.
 After that we need to separate vehicles from other moving objects such as trees or humans. 
 For doing so we limit the area in which we will track movement.
-%и назовем ее областью интереса
 A good choice will be a well-observed part of a highway. 
 Then we need to track the changes in objects of interest coordinates in the following frames.
 
@@ -332,7 +334,7 @@ We can also formulate the following algorithm requirements:
 2) real-time processing of the data flow;
 3) not requiring a significant amount of computational power. The minimal hardware requirements will be proposed in the specification. At the time of writing this paper these requirements are impossible to describe.
 
-Now let us move to the descripton of the algorithm.
+Now let us move to the description of the algorithm.
 
 %Сформулируем задачу: посчитать количество автомобилей, пересекающих область интереса.
 
@@ -486,7 +488,7 @@ For that reason the image must be processed using morphological operations.
 These operations are the following: erosion and dilation.
 
 It is necessary to consider that the method of subtracting the previous frame from the current frame gives good response near the moving object border. 
-However, inside the objects borders the response is NOT SO GOOD.
+However, inside the objects borders the response is bad.
 If the vehicle is relatively large, the probability of its recognition as an object of the foreground is low.
 
 To get rid of this effect let us consider two definitions: sort-term model of the foreground and long-term model of the foreground.
@@ -765,78 +767,32 @@ Raindrops might be recognized as the objects of the foreground.
 But the solutions of these problems is out of the scope of our research, they should be solved by the hardware, not the software.
 
 
-
+\renewcommand{\refname}{}
 \newpage
-\section{Bibliography}
+\section{References}
 \begin{thebibliography}{99}
-\bibitem{lucaskanade} An Iterative Image Registration Technique with an Application to Stereo Vision, Bruce D. Lucas Takeo Kanade, Computer Science Department Carnegie-Mellon University Pittsburgh, Pennsylvania 15213
+\vspace*{-1cm}
 
-\bibitem{realtime_vehicle_detection} Real Time Vehicle Detection and Counting Method for Unsupervised Traffic Video on Highways, Mrs. P.M.Daigavane † and Dr. P.R.Bajaj ††, S. D. College of Engineering, M.S., INDIA
+\bibitem{realtime_vehicle_detection}
+Mrs. P.M.Daigavane and Dr. P.R.Bajaj. 
+(2010). 
+Real Time Vehicle Detection and Counting Method for Unsupervised Traffic Video on Highways.
+\textit{IJCSNS International Journal of Computer Science and Network Security, VOL.10 No.8}.
+pp. 80-82.
+
+\bibitem{vehicle_tracking}
+Dule Shu.
+Vision based Vehicle Tracking using a high angle camera.
+\textit{Raúl Ignacio Ramos García}
+
+\bibitem{lucaskanade} 
+Bruce D. Lucas, Takeo Kanade. 
+(1981). 
+An Iterative Image Registration Technique with an Application to Stereo Vision. 
+\textit{Proceedings of Imaging Understanding Workshop}. 
+pp. 121-130.
+
 \end{thebibliography}
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-\section{Appendix}
-
-\begin{figure}[ht]
-\centering
-\tikzstyle{line} = [draw, -stealth, thick]
-\tikzstyle{block} = [draw, rectangle, fill=white!50, text width=8em, text centered, minimum height=13mm, node distance=8em]
-\begin{tikzpicture}
-
-\node [block] (video_clip) {input video clip};
-
-\node [block, below of=video_clip, yshift=2em] (to_gray) {transform frames to grayscale};
-
-\node [block, below of=to_gray, yshift=2em, xshift=-3em] (frame_i) {frame i};
-\node [block, left of=frame_i, xshift=-1em] (frame_i_plus_one) {frame i+1};
-\node [block, right of=frame_i, xshift=0em] (frame_i_plus_two) {frame i+2};
-\node [block, right of=frame_i_plus_two, xshift=1em] (frame_i_plus_three) {frame i+3};
-
-\node [block, below of=to_gray, yshift=-5em] (sum_of_diff) {the sum of frame substractions};
-
-\node [block, below of=sum_of_diff, yshift=2em] (binarization) {binarization};
-
-\node [block, below of=binarization, yshift=2em] (segmentation) {image segmentation};
-
-\node [block, below of=segmentation, yshift=2em, xshift=-6em] (detection) {vehicle detection};
-\node [block, below of=segmentation, yshift=2em, xshift=6em] (tuning) {vehicle tuning};
-
-\node [block, below of=segmentation, yshift=-4em] (counting) {vehicle counting};
-%arrows
-\path [line] (video_clip) -- (to_gray);
-\path [line] (to_gray) -- (frame_i);
-\path [line] (to_gray) -- (frame_i_plus_one);
-\path [line] (to_gray) -- (frame_i_plus_two);
-\path [line] (to_gray) -- (frame_i_plus_three);
-
-\path [line] (frame_i) -- (sum_of_diff);
-\path [line] (frame_i_plus_one) -- (sum_of_diff);
-\path [line] (frame_i_plus_two) -- (sum_of_diff);
-\path [line] (frame_i_plus_three) -- (sum_of_diff);
-
-\path [line] (sum_of_diff) -- (binarization);
-
-\path [line] (binarization) -- (segmentation);
-
-\path [line] (segmentation) -- (detection);
-\path [line] (segmentation) -- (tuning);
-
-\path [line] (detection) -- (counting);
-\path [line] (tuning) -- (counting);
-\end{tikzpicture}
-\end{figure}
 
 
 
