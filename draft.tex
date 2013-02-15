@@ -140,6 +140,7 @@ As a consequence, a vital necessity of automation of the process and decision ma
 Automatic vehicle detection in this video monitoring is a complex objective of computer vision.
 On of the tasks of such a system is to count vehicles on the highway.
 In its turn, it is divided into subtasks of computer vision, such as foreground retrieving (vehicles) and tracking in the next frames.
+
 This paper offers an overview of an approach which is related to automatic tracking of moving vehicles.
 The only source of data used by this approach is a camera video recording.
 The first chapter of the present graduation paper offers an overview of existing solution in the field of video monitoring.
@@ -306,6 +307,7 @@ There are several methods for calculating this flow.
 Lucas and Kanade developed one of them, using differential approach \cite{lucaskanade}.
 It will be described later in this paper.
 Now let us move to the problem statement.
+
 One of the most important problems of video surveillance is identifying the object of interest and following its trajectory through the sequence of the following frames.
 This problem can be partitioned into several sub-problems.
 In the beginning it is necessary to find the objects of interest, which can also be called the foreground objects.
@@ -330,9 +332,11 @@ To calculate the optical flow we need to make several assumptions:
 Let us state the problem: counting the amount of vehicles which appear in a certain area of interest.
 
 We can also formulate the following algorithm requirements:
-1) working without any specific data about the highway, or the images that are going to be processed;
-2) real-time processing of the data flow;
-3) not requiring a significant amount of computational power. The minimal hardware requirements will be proposed in the specification. At the time of writing this paper these requirements are impossible to describe.
+\begin{enumerate}
+  \item working without any specific data about the highway, or the images that are going to be processed;
+  \item real-time processing of the data flow;
+  \item not requiring a significant amount of computational power. The minimal hardware requirements will be proposed in the specification. At the time of writing this paper these requirements are impossible to describe.
+\end{enumerate}
 
 Now let us move to the description of the algorithm.
 
@@ -710,6 +714,7 @@ We will consider the position of the connected area as the coordinates of its ce
 These coordinates are calculated as the average value of all the X and Y coordinates of the pixels, that this area contains.
 Thus, the problem can be stated in the following way: we need to match the set of connected areas that we have on the current frame with the sets of areas we had on the previous frames, and initialize new areas as they appear.
 Earlier we made several key assumptions.
+
 One of them was that the vehicle in the current frame has only slightly moved in respect to itself in the previous frame.
 So, if we store the positions of the connected areas centres we can find the closest center of an area in the current frame to a center on the previous frame, using the method suggested by Lucas and Kanade \cite{lucaskanade}.
 The main idea of this method is to find the closest point to the given point by giving every point its weight.
